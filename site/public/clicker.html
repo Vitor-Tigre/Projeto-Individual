@@ -81,18 +81,20 @@
     var nvlUp5 = 0;
     var custoUp5 = 52000;
 
+    //Botão de clicar
     function clicker() {
         pontos += porClique;
         b_pontos.innerHTML = pontos;
     }
 
+    //botões de upgrades
     function upgrd1() {
         if (custoUp1 <= pontos) {
             pontos -= custoUp1;
             custoUp1 *= 1.2;
             nvlUp1 += 1;
 
-            b_pontos.innerHTML = pontos;
+            b_pontos.innerHTML = pontos.toFixed(2);
             b_custoUpgrd1.innerHTML = custoUp1.toFixed(2);
             b_upgrd1.innerHTML = nvlUp1;
 
@@ -112,9 +114,9 @@
             b_custoUpgrd2.innerHTML = custoUp2.toFixed(2);
             b_upgrd2.innerHTML = nvlUp2;
 
-            setInterval(function() {
-                b_pontos.innerHTML = pontos;
-            })
+            setInterval(function () {
+                b_pontos.innerHTML = pontos.toFixed(2);
+            }, 1000)
         } else {
             alert('Pontos insuficientes para a compra do item!');
         }
