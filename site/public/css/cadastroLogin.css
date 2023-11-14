@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+}
+
+.corpo {
+    background-color: #dbdbdb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 93vh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.corpo #titulo_registro {
+    margin: 3px;
+}
+
+.corpo .container h2, h3, p {
+    color: #fefefe;
+    font-size: smaller;
+}
+.corpo .container {
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    width: 30%;
+}
+
+.corpo .container .area {
+    margin: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.corpo .container .area input {
+    width: 50%;
+    height: 25px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.corpo .container .area button {
+    height: 50px;
+    width: 200px;
+    border: 1px solid #fefefe;
+    background-color: #000000;
+    color: #fefefe;
+    border-radius: 25px;
+}
+
+.corpo .container .area select {
+    height: 30px;
+    width: 200px;
+    border: 1px solid #fefefe;
+    background-color: #000000;
+    color: #fefefe;
+    border-radius: 25px;
+}
+.corpo .container .area select option {
+    text-align: center;
+}
+
+.corpo .container .area a {
+    color: #fefefe ;
+}

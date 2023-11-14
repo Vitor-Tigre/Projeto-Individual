@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/clicker.css">
+    <title>†Clicker†</title>
+</head>
+
+<body>
+    <div class="corpo">
+        <div class="content">
+
+            <div class="container" id="clicker_pontos">
+                <div class="container" id="pontos">
+                    Pontos: <span id="b_pontos">0</span>
+                </div>
+                <div class="container" id="clicker" onclick="clicker()">
+                    <img
+                        src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/0/09/IdleBonnie.gif/revision/latest/scale-to-width/360?cb=20160224185154&path-prefix=pt-br">
+                </div>
+            </div>
+
+            <div class="container" id="upgrades_settings">
+                <div id="settings">
+                    <ul>
+                        <li onclick="li_salvar">Salvar</li>
+                        <li onclick="li_salverESair">Salvar e sair</li>
+                    </ul>
+                </div>
+                <div class="lista_upgrades">
+                    <h1>Upgrades</h1>
+                    <div class="upgrades" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
+                        <h2>Maior poder de clique nvl. <span id="b_upgrd1">1</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd1">100</span></p>
+                    </div>
+                    <div class="upgrades" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
+                        <h2>Clique por segundo nvl. <span id="b_upgrd2">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd2">1250</span></p>
+                    </div>
+                    <div class="upgrades" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
+                        <h2>Clique por segundo 2 nvl. <span id="upgrd3">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd3">5000</span></p>
+                    </div>
+                    <div class="upgrades" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
+                        <h2>Clique por segundo 3 nvl. <span id="b_upgrd4">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd4">12000</span></p>
+                    </div>
+                    <div class="upgrades" onclick="upgrd5()">
+                        <!--Aumenta o valor por segundo com base na quantidade de upgrades - ex.: 20 upgrades dá ao jogador 0.20x a mais de pontos por segundo-->
+                        <h2>Clique por segundo 4 nvl. <span id="b_upgrd5">0</span></h2>
+                        <p>Custo: <span id="b_curtoUpgrd5">52000</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //quantidade de pontos o jogador tem e quantos pontos por segundo
+    var pontos = 0;
+    var porClique = 1
+
+    //níveis e custos de cada upgrade, do primeiro (1) ao quinto (5)
+    var nvlUp1 = 1;
+    var custoUp1 = 100;
+
+    var nvlUp2 = 0;
+    var custoUp2 = 1250;
+
+    var nvlUp3 = 0;
+    var custoUp3 = 5000;
+
+    var nvlUp4 = 0;
+    var custoUp4 = 12000;
+
+    var nvlUp5 = 0;
+    var custoUp5 = 52000;
+
+    function clicker() {
+        pontos += porClique;
+        b_pontos.innerHTML = pontos;
+    }
+
+    function upgrd1() {
+        if (custoUp1 <= pontos) {
+            pontos -= custoUp1;
+            custoUp1 *= 1.2;
+            nvlUp1 += 1;
+
+            b_pontos.innerHTML = pontos;
+            b_custoUpgrd1.innerHTML = custoUp1.toFixed(2);
+            b_upgrd1.innerHTML = nvlUp1;
+
+            porClique += 1;
+        } else {
+            alert('Pontos insuficientes para a compra do item!');
+        }
+    }
+
+    function upgrd2() {
+        if (custoUp2 <= pontos) {
+            pontos -= custoUp2;
+            custoUp2 *= 1.2;
+            nvlUp2 += 1;
+
+            b_pontos.innerHTML = pontos;
+            b_custoUpgrd2.innerHTML = custoUp2.toFixed(2);
+            b_upgrd2.innerHTML = nvlUp2;
+
+            setInterval(function() {
+                b_pontos.innerHTML = pontos;
+            })
+        } else {
+            alert('Pontos insuficientes para a compra do item!');
+        }
+    }
+</script>

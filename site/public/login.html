@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastroLogin.css">
+    <link rel="stylesheet" href="css/header.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="header">
+        <div class="container">
+            <h1><a href="index.html">†BMTH†</a></h1>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discografia.html">Músicas</a></li>
+                <li><a href="shows.html">Shows</a></li>
+            </ul>
+            <ul id="user">
+                <li><a href="#">Login</a></li>
+                <li><img src="assets/user_icon.png"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="corpo">
+        <h1 id="titulo_registro">Login na conta</h1>
+        <div class="container">
+            <div class="area">
+                <h2>E-mail</h2>
+                <input type="email" id="input_email">
+            </div>
+            <div class="area">
+                <h2>Senha</h2>
+                <input type="password" id="input_senha">
+            </div>
+            <div class="area">
+                <div id="mensagemErro"></div>
+                <button onclick="entrarConta()">Entrar</button>
+                <p>Ainda não possui uma conta? <a href="cadastro.html">Cadastre-se</a>.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function entrarConta() {
+
+        var emailVar = input_email.value;
+        var senhaVar = input_senha.value;
+
+        if (emailVar == '' || senhaVar == '') {
+            mensagemErro.innerHTML = 'Erro de campo em branco.';
+            finalizarAguardar();
+            return false;
+        }
+
+        console.log("email informado: ", emailVar);
+        console.log("senha informada: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("Entrou na conta (entrou no then entrarConta())");
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.email = json.email;
+                    sessionStorage.nome = json.nome;
+                    sessionStorage.senha = json.senha;
+                    sessionStorage.dtNasc = json.dtNasc;
+                    sessionStorage.albumPreferido = json.albumPreferido;
+                    sessionStorage.dtCriacao = json.dtCriacao;
+
+                    window.location.href = "perfil.html"
+                });
+            }
+        })
+
+    }
+</script>

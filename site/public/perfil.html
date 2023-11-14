@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/perfil.css">
+    <title>Perfil - BMTH</title>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <h1><a href="index.html">†BMTH†</a></h1>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discografia.html">Músicas</a></li>
+                <li><a href="shows.html">Shows</a></li>
+            </ul>
+            <ul id="user">
+                <li><a href="login.html">Sair</a></li>
+                <li><img src="assets/exitIcon.png"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="corpo">
+        <div id="content">
+
+            <div class="container" id="userImg">
+                <img src="assets/user_icon.png">
+                <h2></h2>
+                <h3><a href="quiz.html">Jogar Quiz</a></h3>
+                <h3><a href="clicker.html">Clicker</a></h3>
+                <h3>membro desde <span id="b_criacao">00/00/0000</span></h3>
+
+            </div>
+
+            <div class="container" id="userFeed">
+
+                <h1>Bem vindo(a), <span id="b_usuario">Usuário</span></h1>
+
+                <div class="userDados">
+
+                    <div class="albumConquistas">
+                        <h5>Álbum preferido</h5>
+                        <h6><span id="b_albumPreferido"></span></h6>
+                    </div>
+
+                    <div class="albumConquistas">
+                        <h5>Quiz</h5>
+                        <div class="dadosConquistas">
+                            <!-- <h6>Tempo recorde: 00:00:00</h6> -->
+                            <h6>Acertos 10/10</h6>
+                        </div>
+                    </div>
+                    <div class="albumConquistas">
+                        <h5>Rock Clicker</h5>
+                        <div class="dadosConquistas">
+                            <h6>Nível: 0</h6>
+                            <h6>Total de pontos: 0</h6>
+                            <h6></h6>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="userPosts">
+                    <textarea name="" id="userTextPost" cols="30" rows="5" placeholder="No que está pensando?"></textarea>
+                    <button id="publicarTexto">Publicar</button>
+                </div> -->
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    b_usuario.innerHTML = sessionStorage.nome;
+    b_albumPreferido.innerHTML = sessionStorage.albumPreferido;
+    b_criacao.innerHTML = sessionStorage.dtCriacao;
+</script>

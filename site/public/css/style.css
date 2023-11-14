@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    scroll-behavior: smooth;
+}
+
+
+/*Banner das páginas*/
+.corpo .banner {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 93vh;
+}
+
+.corpo .banner .container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #fefefe;
+    font-size: large;
+    font-weight: 900;
+}
+
+/*Página inicial do site*/
+.corpo #home {
+    background-color: #000000;
+    background-image: url(../assets/bmth-hex.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.corpo #home .container {
+    font-size: 18px;
+}
+
+.corpo #sobreBMTH {
+    background-color: #1a1a1a;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+.corpo #sobreBMTH .container p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    margin-block: 7px;
+}
+
+.corpo #projeto {
+    background-image: url(../assets/beneficent.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-top: 3px solid #0a7c60;
+}
+
+/*Página da discografia da banda*/
+.corpo #musicas {
+    background-color: #1a1a1a;
+}
+
+/*Página de shows*/
+.corpo #shows {
+    background-color: purple;
+}

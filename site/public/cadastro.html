@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastroLogin.css">
+    <link rel="stylesheet" href="css/header.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <div id="header">
+        <div class="container">
+            <h1><a href="index.html">†BMTH†</a></h1>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="discografia.html">Músicas</a></li>
+                <li><a href="shows.html">Shows</a></li>
+            </ul>
+            <ul id="user">
+                <li><a href="login.html">Login</a></li>
+                <li><img src="assets/user_icon.png"></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="corpo">
+        <h1 id="titulo_registro">Cadastrar conta</h1>
+        <div class="container">
+            <div class="area">
+                <h2>Nome de usuário</h2>
+                <input id="input_nomeUsuario">
+            </div>
+            <div class="area">
+                <h2>E-mail</h2>
+                <input id="input_email" placeholder="e-mail válido">
+            </div>
+            <div class="area">
+                <h2>Senha</h2>
+                <input type="password" id="input_senha" placeholder="letras e números">
+
+                <h3>Confirmar senha</h3>
+                <input type="password" id="input_confSenha">
+            </div>
+            <div class="area">
+                <h2>Data de nascimento</h2>
+                <input type="date" id="input_dtNasc">
+            </div>
+            <div class="area">
+                <h2>Álbum preferido de BMTH</h2>
+                <select name="albumPreferido" id="select_albumPreferido">
+                    <option value="disabled" selected disabled>Escolha um</option>
+                    <option value="POST HUMAN2">POST HUMAN: NeX GEn</option>
+                    <option value="POST HUMAN">POST HUMAN: SURVIVAL HORROR</option>
+                    <option value="music to listen to...">Music to listen to...</option>
+                    <option value="amo">amo</option>
+                    <option value="Royal Albert Hall">Live at the Royal Albert Hall</option>
+                    <option value="Thats The Spirit">That's The Spirit</option>
+                    <option value="Sempiternal">Sempiternal</option>
+                    <option value="Theres A Hell">There's a Hell</option>
+                    <option value="Suicide Season">Suicide Season</option>
+                    <option value="Count Your Blesses">Count Your Blesses</option>
+                </select>
+            </div>
+            <div class="area">
+                <div id="mensagemErro"></div>
+                <button onclick="cadastrarConta()">Cadastrar Conta</button>
+                <p>Já possui uma conta? <a href="login.html">Clique aqui</a> para entrar.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    function cadastrarConta() {
+        var nome = input_nomeUsuario.value;
+        var email = input_email.value;
+        var senha = input_senha.value;
+        var confirmarSenha = input_confSenha.value;
+        var dtNasc = input_dtNasc.value;
+        var albumPreferido = select_albumPreferido.value;
+        var dtCriacao = new Date().toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' })
+
+        // validações 
+        if (nome == '') {
+            mensagemErro.innerHTML = '<span style="color: red;">Insira um nome de usuário!</span>';
+            finalizarAguardar();
+            return false;
+        } else if (email == '' || email.indexOf("@") < 0 || email.endsWith('.com') == false || email.endsWith('.school') == false) {
+            mensagemErro.innerHTML = '<span style="color: red;"> Insira um email válido!</span>';
+            finalizarAguardar();
+            return false;
+        } else if (senha.length < 8 || senha.includes('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') == false) {
+            mensagemErro.innerHTML = '<span style="color: red;"> Insira senha de pelo menos 8 dígitos e com números!</span>';
+            finalizarAguardar();
+            return false;
+        } else if (confirmarSenha != senha) {
+            mensagemErro.innerHTML = '<span style="color: red;">Senhas diferentes foram inseridas!</span>';
+            finalizarAguardar();
+            return false;
+        } else if (dtNasc == '') {
+            mensagemErro.innerHTML = '<span style="color: red;"> Insira uma data de nascimento!</span>';
+            finalizarAguardar();
+            return false;
+        }
+
+        mensagemErro.innerHTML = ''
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+                dtNascServer: dtNasc,
+                albumPreferidoServer: albumPreferido,
+                dtCriacaoServer: dtCriacao
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    mensagemErro.innerHTML = '<span style="color: #fefefe">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>';
+
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, "2000");
+
+                    limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                    mensagemErro.innerHTML = '<span style="color: red;">E-mail já cadastrado.</span>'
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                mensagemErro.innerHTML = '<span style="color: green;">Welcome.</span>'
+            });
+
+    }
+</script>
