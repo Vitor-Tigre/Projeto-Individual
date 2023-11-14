@@ -36,19 +36,48 @@ body {
 }
 
 .corpo #sobreBMTH {
-    background-color: #1a1a1a;
+    background-color: #fefefe;
     height: auto;
-    padding-bottom: 20px;
+    width: 100%;
+    padding-block: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.corpo #sobreBMTH .container p {
+.corpo #sobreBMTH .container {
+    color: #000000;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-block: 40px;
+}
+
+.corpo #sobreBMTH .container .textoSobre {
+    width: 60%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
-    margin-block: 7px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+.corpo #sobreBMTH .container .imagemSobre {
+    width: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.corpo #sobreBMTH .container .imagemSobre img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+
 .corpo #projeto {
-    background-image: url(../assets/beneficent.jpg);
+    /* background-image: url(../assets/beneficent.jpg); */
+    background-color: #1a1a1a;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
