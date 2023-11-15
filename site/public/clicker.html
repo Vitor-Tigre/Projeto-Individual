@@ -14,7 +14,7 @@
 
             <div class="container" id="clicker_pontos">
                 <div class="container" id="pontos">
-                    Pontos: <span id="b_pontos">0</span>
+                    Pontos: <span id="b_pontos">0.00</span>
                 </div>
                 <div class="container" id="clicker" onclick="clicker()">
                     <img
@@ -26,31 +26,31 @@
                 <div id="settings">
                     <ul>
                         <li onclick="li_salvar">Salvar</li>
-                        <li onclick="li_salverESair">Salvar e sair</li>
+                        <li onclick="li_salverESair"><a href="perfil.html">Salvar e sair</a></li>
                     </ul>
                 </div>
                 <div class="lista_upgrades">
                     <h1>Upgrades</h1>
                     <div class="upgrades" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
-                        <h2>Maior poder de clique nvl. <span id="b_upgrd1">1</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd1">100</span></p>
+                        <h2>Power Chord Boost nvl. <span id="b_upgrd1">1</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd1">50</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
-                        <h2>Clique por segundo nvl. <span id="b_upgrd2">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd2">1250</span></p>
+                        <h2>Riff Generator nvl. <span id="b_upgrd2">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd2">15</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
-                        <h2>Clique por segundo 2 nvl. <span id="b_upgrd3">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd3">5000</span></p>
+                        <h2>Drum Solo Fury nvl. <span id="b_upgrd3">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd3">150</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
-                        <h2>Clique por segundo 3 nvl. <span id="b_upgrd4">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd4">12000</span></p>
+                        <h2>Bassline Resonance nvl. <span id="b_upgrd4">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd4">450</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd5()">
                         <!--Aumenta o valor por segundo com base na quantidade de upgrades - ex.: 20 upgrades dá ao jogador 0.20x a mais de pontos por segundo-->
-                        <h2>Clique por segundo 4 nvl. <span id="b_upgrd5">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd5">52000</span></p>
+                        <h2>Aliança com as lendas nvl. <span id="b_upgrd5">0</span></h2>
+                        <p>Custo: <span id="b_custoUpgrd5">5000</span></p>
                     </div>
                 </div>
             </div>
@@ -70,19 +70,19 @@
 
     //níveis e custos de cada upgrade, do primeiro (1) ao quinto (5)
     var nvlUp1 = 1;
-    var custoUp1 = 100;
+    var custoUp1 = 50;
 
     var nvlUp2 = 0;
-    var custoUp2 = 1250;
+    var custoUp2 = 15;
 
     var nvlUp3 = 0;
-    var custoUp3 = 5000;
+    var custoUp3 = 150;
 
     var nvlUp4 = 0;
-    var custoUp4 = 12000;
+    var custoUp4 = 450;
 
     var nvlUp5 = 0;
-    var custoUp5 = 52000;
+    var custoUp5 = 5000;
 
     //valor dos pontos atribuidos ao jogador por segundo.
     var porSegundo = 0;
@@ -114,10 +114,10 @@
     function upgrd2() {
         if (pontos >= custoUp2) {
             pontos -= custoUp2;
-            porSegundo += 1;
+            porSegundo += 0.10;
 
             nvlUp2 += 1;
-            custoUp2 *= 1.4;
+            custoUp2 *= 1.1;
 
             b_pontos.innerHTML = pontos.toFixed(2);
             b_upgrd2.innerHTML = nvlUp2;
@@ -130,10 +130,10 @@
     function upgrd3() {
         if (pontos >= custoUp3) {
             pontos -= custoUp3;
-            porSegundo += 3;
+            porSegundo += 2;
 
             nvlUp3 += 1;
-            custoUp3 *= 1.8;
+            custoUp3 *= 1.4;
 
             b_pontos.innerHTML = pontos.toFixed(2);
             b_upgrd3.innerHTML = nvlUp3;
@@ -146,10 +146,10 @@
     function upgrd4() {
         if (pontos >= custoUp4) {
             pontos -= custoUp4;
-            porSegundo += 6;
+            porSegundo += 5;
 
             nvlUp4 += 1;
-            custoUp4 *= 2.2;
+            custoUp4 *= 1.8;
 
             b_pontos.innerHTML = pontos.toFixed(2);
             b_upgrd4.innerHTML = nvlUp4;
@@ -162,10 +162,10 @@
     function upgrd5() {
         if (pontos >= custoUp5) {
             pontos -= custoUp5;
-            porSegundo += 0.1 + (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4);
+            porSegundo += 0.1 * (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4);
 
             nvlUp5 += 1;
-            custoUp5 *= 3;
+            custoUp5 *= 1.9;
 
             b_pontos.innerHTML = pontos.toFixed(2);
             b_upgrd5.innerHTML = nvlUp5;
@@ -176,9 +176,9 @@
     }
 
     setInterval(function() {
-        pontos += porSegundo;
+        pontos += porSegundo / 4;
         b_pontos.innerHTML = pontos.toFixed(2);
-    }, 1000);
+    }, 250);
 
     cliques += onclick;
 </script>
