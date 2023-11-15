@@ -40,7 +40,7 @@
                         <p>Custo: <span id="b_custoUpgrd2">1250</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
-                        <h2>Clique por segundo 2 nvl. <span id="upgrd3">0</span></h2>
+                        <h2>Clique por segundo 2 nvl. <span id="b_upgrd3">0</span></h2>
                         <p>Custo: <span id="b_custoUpgrd3">5000</span></p>
                     </div>
                     <div class="upgrades" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
@@ -50,7 +50,7 @@
                     <div class="upgrades" onclick="upgrd5()">
                         <!--Aumenta o valor por segundo com base na quantidade de upgrades - ex.: 20 upgrades dá ao jogador 0.20x a mais de pontos por segundo-->
                         <h2>Clique por segundo 4 nvl. <span id="b_upgrd5">0</span></h2>
-                        <p>Custo: <span id="b_curtoUpgrd5">52000</span></p>
+                        <p>Custo: <span id="b_custoUpgrd5">52000</span></p>
                     </div>
                 </div>
             </div>
@@ -64,6 +64,9 @@
     //quantidade de pontos o jogador tem e quantos pontos por segundo
     var pontos = 0;
     var porClique = 1
+
+    //quantidade de vezes o jogador clicou
+    var cliques = 0;
 
     //níveis e custos de cada upgrade, do primeiro (1) ao quinto (5)
     var nvlUp1 = 1;
@@ -81,40 +84,101 @@
     var nvlUp5 = 0;
     var custoUp5 = 52000;
 
+    //valor dos pontos atribuidos ao jogador por segundo.
+    var porSegundo = 0;
+
     //Botão de clicar
     function clicker() {
         pontos += porClique;
-        b_pontos.innerHTML = pontos;
+        cliques += 1;
+        b_pontos.innerHTML = pontos.toFixed(2);
     }
 
-    //botões de upgrades
+    //Upgrade 1: aumenta a quantidade de pontos recebidos por cada clique.
     function upgrd1() {
-        if (custoUp1 <= pontos) {
+        if (pontos >= custoUp1) {
             pontos -= custoUp1;
-            custoUp1 *= 1.2;
-            nvlUp1 += 1;
-
-            b_pontos.innerHTML = pontos;
-            b_custoUpgrd1.innerHTML = custoUp1.toFixed(2);
-            b_upgrd1.innerHTML = nvlUp1;
-
             porClique += 1;
+
+            nvlUp1 += 1;
+            custoUp1 *= 1.2;
+
+            b_pontos.innerHTML = pontos.toFixed(2);
+            b_upgrd1.innerHTML = nvlUp1;
+            b_custoUpgrd1.innerHTML = custoUp1.toFixed(2);
         } else {
-            alert('Pontos insuficientes para a compra do item!');
+            alert(`Você precisa de mais ${custoUp1 - pontos} para comprar esse upgrade.`);
         }
     }
 
     function upgrd2() {
-        if (custoUp2 <= pontos) {
+        if (pontos >= custoUp2) {
             pontos -= custoUp2;
-            custoUp2 *= 1.2;
-            nvlUp2 += 1;
+            porSegundo += 1;
 
-            b_pontos.innerHTML = pontos;
-            b_custoUpgrd2.innerHTML = custoUp2.toFixed(2);
+            nvlUp2 += 1;
+            custoUp2 *= 1.4;
+
+            b_pontos.innerHTML = pontos.toFixed(2);
             b_upgrd2.innerHTML = nvlUp2;
+            b_custoUpgrd2.innerHTML = custoUp2.toFixed(2);
         } else {
-            alert('Pontos insuficientes para a compra do item!');
+            alert(`Você precisa de mais ${custoUp2 - pontos} para comprar esse upgrade.`);
         }
     }
+
+    function upgrd3() {
+        if (pontos >= custoUp3) {
+            pontos -= custoUp3;
+            porSegundo += 3;
+
+            nvlUp3 += 1;
+            custoUp3 *= 1.8;
+
+            b_pontos.innerHTML = pontos.toFixed(2);
+            b_upgrd3.innerHTML = nvlUp3;
+            b_custoUpgrd3.innerHTML = custoUp3.toFixed(2);
+        } else {
+            alert(`Você precisa de mais ${custoUp3 - pontos} para comprar esse upgrade.`);
+        }
+    }
+
+    function upgrd4() {
+        if (pontos >= custoUp4) {
+            pontos -= custoUp4;
+            porSegundo += 6;
+
+            nvlUp4 += 1;
+            custoUp4 *= 2.2;
+
+            b_pontos.innerHTML = pontos.toFixed(2);
+            b_upgrd4.innerHTML = nvlUp4;
+            b_custoUpgrd4.innerHTML = custoUp4.toFixed(2);
+        } else {
+            alert(`Você precisa de mais ${custoUp4 - pontos} para comprar esse upgrade.`);
+        }
+    }
+
+    function upgrd5() {
+        if (pontos >= custoUp5) {
+            pontos -= custoUp5;
+            porSegundo += 0.1 + (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4);
+
+            nvlUp5 += 1;
+            custoUp5 *= 3;
+
+            b_pontos.innerHTML = pontos.toFixed(2);
+            b_upgrd5.innerHTML = nvlUp5;
+            b_custoUpgrd5.innerHTML = custoUp5.toFixed(2);
+        } else {
+            alert(`Você precisa de mais ${custoUp5 - pontos} para comprar esse upgrade.`);
+        }
+    }
+
+    setInterval(function() {
+        pontos += porSegundo;
+        b_pontos.innerHTML = pontos.toFixed(2);
+    }, 1000);
+
+    cliques += onclick;
 </script>
