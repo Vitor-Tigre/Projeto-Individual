@@ -25,32 +25,47 @@
             <div class="container" id="upgrades_settings">
                 <div id="settings">
                     <ul>
-                        <li onclick="li_salvar">Salvar</li>
-                        <li onclick="li_salverESair"><a href="perfil.html">Salvar e sair</a></li>
+                        <li>Salvar</li>
+                        <li><a href="perfil.html">Salvar e sair</a></li>
                     </ul>
                 </div>
                 <div class="lista_upgrades">
                     <h1>Upgrades</h1>
                     <div class="upgrades" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
-                        <h2>Power Chord Boost nvl. <span id="b_upgrd1">1</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd1">50</span></p>
+                        <h2>Power Chord Boost</h2>
+                        <div class="custo_nivel">
+                            <p>nvl. <span id="b_upgrd1">1</span></p>
+                            <p>Custo: <span id="b_custoUpgrd1">50</span></p>
+                        </div>
                     </div>
                     <div class="upgrades" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
-                        <h2>Riff Generator nvl. <span id="b_upgrd2">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd2">15</span></p>
+                        <h2>Riff Generator</h2>
+                        <div class="custo_nivel">
+                            <p>nvl. <span id="b_upgrd2">0</span></p>
+                            <p>Custo: <span id="b_custoUpgrd2">15</span></p>
+                        </div>
                     </div>
                     <div class="upgrades" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
-                        <h2>Drum Solo Fury nvl. <span id="b_upgrd3">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd3">150</span></p>
+                        <h2>Drum Solo Fury</h2>
+                        <div class="custo_nivel">
+                            <p>nvl. <span id="b_upgrd3">0</span></p>
+                            <p>Custo: <span id="b_custoUpgrd3">150</span></p>
+                        </div>
                     </div>
                     <div class="upgrades" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
-                        <h2>Bassline Resonance nvl. <span id="b_upgrd4">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd4">450</span></p>
+                        <h2>Bassline Resonance</h2>
+                        <div class="custo_nivel">
+                            <p>nvl. <span id="b_upgrd4">0</span></p>
+                            <p>Custo: <span id="b_custoUpgrd4">450</span></p>
+                        </div>
                     </div>
                     <div class="upgrades" onclick="upgrd5()">
                         <!--Aumenta o valor por segundo com base na quantidade de upgrades - ex.: 20 upgrades dá ao jogador 0.20x a mais de pontos por segundo-->
-                        <h2>Aliança com as lendas nvl. <span id="b_upgrd5">0</span></h2>
-                        <p>Custo: <span id="b_custoUpgrd5">5000</span></p>
+                        <h2>Aliança com as lendas</h2>
+                        <div class="custo_nivel">
+                            <p>nvl. <span id="b_upgrd5">0</span></p>
+                            <p>Custo: <span id="b_custoUpgrd5">5000</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,7 +122,7 @@
             b_upgrd1.innerHTML = nvlUp1;
             b_custoUpgrd1.innerHTML = custoUp1.toFixed(2);
         } else {
-            alert(`Você precisa de mais ${custoUp1 - pontos} para comprar esse upgrade.`);
+            alert(`Você precisa de mais ${(custoUp1 - pontos).toFixed(2)} para comprar esse upgrade.`);
         }
     }
 
@@ -123,7 +138,7 @@
             b_upgrd2.innerHTML = nvlUp2;
             b_custoUpgrd2.innerHTML = custoUp2.toFixed(2);
         } else {
-            alert(`Você precisa de mais ${custoUp2 - pontos} para comprar esse upgrade.`);
+            alert(`Você precisa de mais ${(custoUp2 - pontos).toFixed(2)} para comprar esse upgrade.`);
         }
     }
 
@@ -139,7 +154,7 @@
             b_upgrd3.innerHTML = nvlUp3;
             b_custoUpgrd3.innerHTML = custoUp3.toFixed(2);
         } else {
-            alert(`Você precisa de mais ${custoUp3 - pontos} para comprar esse upgrade.`);
+            alert(`Você precisa de mais ${(custoUp3 - pontos).toFixed(2)} para comprar esse upgrade.`);
         }
     }
 
@@ -155,11 +170,12 @@
             b_upgrd4.innerHTML = nvlUp4;
             b_custoUpgrd4.innerHTML = custoUp4.toFixed(2);
         } else {
-            alert(`Você precisa de mais ${custoUp4 - pontos} para comprar esse upgrade.`);
+            alert(`Você precisa de mais ${(custoUp4 - pontos).toFixed(2)} para comprar esse upgrade.`);
         }
     }
 
     function upgrd5() {
+        upgrd4()
         if (pontos >= custoUp5) {
             pontos -= custoUp5;
             porSegundo += 0.1 * (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4);
@@ -171,11 +187,11 @@
             b_upgrd5.innerHTML = nvlUp5;
             b_custoUpgrd5.innerHTML = custoUp5.toFixed(2);
         } else {
-            alert(`Você precisa de mais ${custoUp5 - pontos} para comprar esse upgrade.`);
+            alert(`Você precisa de mais ${(custoUp5 - pontos).toFixed(2)} para comprar esse upgrade.`);
         }
     }
 
-    setInterval(function() {
+    setInterval(function () {
         pontos += porSegundo / 4;
         b_pontos.innerHTML = pontos.toFixed(2);
     }, 250);

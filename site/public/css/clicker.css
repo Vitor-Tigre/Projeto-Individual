@@ -1,9 +1,10 @@
 body {
     margin: 0;
     color: aliceblue;
-    
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
+
 a {
     color: aliceblue;
     text-decoration: none;
@@ -79,13 +80,19 @@ a {
 /*Lista de upgrades*/
 .corpo .content #upgrades_settings .lista_upgrades {
     width: 95%;
-    height: 80%;
+    height: auto;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 
     border: 1px solid #fefefe;
     border-radius: 15px;
+    padding-bottom: 10px;
+}
+
+.corpo .content #upgrades_settings .lista_upgrades h1 {
+    margin-block: 10px;
 }
 
 .corpo .content #upgrades_settings .lista_upgrades .upgrades {
@@ -97,12 +104,22 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     cursor: pointer;
 }
+
 #upgrades_settings .lista_upgrades .upgrades:hover {
     transform: scale(1.05);
 }
-#upgrades_settings .lista_upgrades .upgrades h2, p {
+
+#upgrades_settings .lista_upgrades .upgrades h2,
+p {
     margin-block: 3px;
+}
+
+/*Espaçamento entre o nível e o custo do upgrade*/
+#upgrades_settings .lista_upgrades .upgrades .custo_nivel {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
 }
