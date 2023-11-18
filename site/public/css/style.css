@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    scroll-behavior: smooth;
 }
 
 
@@ -27,6 +26,7 @@ body {
 .corpo #home {
     background-color: #000000;
     background-image: url(../assets/bmth-hex.webp);
+    background-size: 30%;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -78,10 +78,33 @@ body {
 .corpo #projeto {
     /* background-image: url(../assets/beneficent.jpg); */
     background-color: #1a1a1a;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     border-top: 3px solid #0a7c60;
+    height: auto;
+}
+
+#projeto .container {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-between;
+}
+
+#projeto .container #sobreMimeoProjeto {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+#projeto .container #eu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#projeto .container #eu img {
+    height: 400px;
+    border: 2px solid #fefefe;
+    border-radius: 10px;
 }
 
 /*Página da discografia da banda*/
@@ -91,5 +114,5 @@ body {
 
 /*Página de shows*/
 .corpo #shows {
-    background-color: purple;
+    background-color: #1a1a1a;
 }
