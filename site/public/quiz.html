@@ -94,26 +94,20 @@
             }
             if (acertos == 0) {
                 textos.innerHTML = `<p>Eu te admiro por ter errado TODAS as questões. Deve ser muito difícil fazer isso.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else if (acertos == 1) {
                 textos.innerHTML = `<p>Você acertou 1 questão! Você poderia tentar da próxima vez.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else if (acertos == 2) {
                 textos.innerHTML = `<p>Você acertou 2 questões! Mantenha a calma e tente de novo depois.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else if (acertos <= 4) {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um pouco desleixado, mas ainda é um fã de Bring Me The Horizon.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else if (acertos <= 6) {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um fã de Bring Me The Horizon, e você está sempre compartilhando seu amor pela banda com os outros.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else if (acertos <= 8) {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um fã de Bring Me The Horizon, e você é um verdadeiro tesouro para a comunidade.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             } else {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um verdadeiro especialista em Bring Me The Horizon. Você poderia escrever um livro sobre eles.</p>`
-                botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
             }
+            botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
         } else {
             iniciar();
         }
