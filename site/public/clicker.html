@@ -31,40 +31,64 @@
                 </div>
                 <div class="lista_upgrades">
                     <h1>Upgrades</h1>
-                    <div class="upgrades" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
+                    <div class="upgrades" id="botao_upgrd1" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
                         <h2>Power Chord Boost</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd1">1</span></p>
                             <p>Custo: <span id="b_custoUpgrd1">50</span></p>
                         </div>
+                        <div class="desc_upgrades" id="desc_upgrd1">
+                            <p>Aumenta a potência dos cliques, transformando-os em poderosos acordes de guitarra.</p>
+                            <p>+1 ponto por clique.</p>
+                        </div>
                     </div>
-                    <div class="upgrades" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
+
+                    <div class="upgrades" id="botao_upgrd2" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
                         <h2>Riff Generator</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd2">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd2">15</span></p>
                         </div>
+                        <div class="desc_upgrades" id="desc_upgrd2">
+                            <p>Desbloqueia um gerador de riffs automático que adiciona pontos constantemente ao seu total.</p>
+                            <p>+0.10 ponto por segundo.</p>
+                        </div>
                     </div>
-                    <div class="upgrades" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
+
+                    <div class="upgrades" id="botao_upgrd3" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
                         <h2>Drum Solo Fury</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd3">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd3">150</span></p>
                         </div>
+                        <div class="desc_upgrades" id="desc_upgrd3">
+                            <p>Ative um frenesi de solos de bateria, multiplicando seus pontos por segundo.</p>
+                            <p>+2 pontos por segundo.</p>
+                        </div>
                     </div>
-                    <div class="upgrades" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
+
+                    <div class="upgrades" id="botao_upgrd4" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
                         <h2>Bassline Resonance</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd4">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd4">450</span></p>
                         </div>
+                        <div class="desc_upgrades" id="desc_upgrd4">
+                            <p>Fortalece a ressonância da linha de baixo, proporcionando um aumento constante nos pontos.</p>
+                            <p>+5 pontos por segundo.</p>
+                        </div>
                     </div>
-                    <div class="upgrades" onclick="upgrd5()">
+
+                    <div class="upgrades" id="botao_upgrd5" onclick="upgrd5()">
                         <!--Aumenta o valor por segundo com base na quantidade de upgrades - ex.: 20 upgrades dá ao jogador 0.20x a mais de pontos por segundo-->
                         <h2>Aliança com as lendas</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd5">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd5">5000</span></p>
+                        </div>
+                        <div class="desc_upgrades" id="desc_upgrd5">
+                            <p>Junte-se a lendas do rock para um concerto épico, multiplicando todos os seus ganhos.</p>
+                            <p>Multiplicador global para pontos e cliques.</p>
                         </div>
                     </div>
                 </div>
@@ -101,6 +125,8 @@
 
     //valor dos pontos atribuidos ao jogador por segundo.
     var porSegundo = 0;
+
+
 
     //Botão de clicar
     function clicker() {
@@ -175,10 +201,9 @@
     }
 
     function upgrd5() {
-        upgrd4()
         if (pontos >= custoUp5) {
             pontos -= custoUp5;
-            porSegundo += 0.1 * (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4);
+            porSegundo += 1.2 * (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4 + nvlUp5);
 
             nvlUp5 += 1;
             custoUp5 *= 1.9;
@@ -197,4 +222,105 @@
     }, 250);
 
     cliques += onclick;
+
+
+    //descrição dos upgrades.
+    botao_upgrd1.addEventListener("mouseover", function (event) {
+        var x = event.clientX;
+        var y = event.clientY;
+
+        desc_upgrd1.style.width = '200px';
+        desc_upgrd1.style.height = 'fit-content';
+        desc_upgrd1.style.left = "-220px";
+        desc_upgrd1.style.opacity = 0.5;
+    });
+
+    botao_upgrd1.addEventListener("mouseout", function () {
+        desc_upgrd1.style.width = 0;
+        desc_upgrd1.style.height = 0;
+        desc_upgrd1.style.overflow = 'hidden';
+        desc_upgrd1.style.left = 0 + "px";
+        desc_upgrd1.style.opacity = 0;
+        desc_upgrd1.style.opacity = 0;
+    });
+
+
+    botao_upgrd2.addEventListener("mouseover", function (event) {
+        var x = event.clientX;
+        var y = event.clientY;
+
+        desc_upgrd2.style.width = '200px';
+        desc_upgrd2.style.height = 'fit-content';
+        desc_upgrd2.style.left = "-220px";
+        desc_upgrd2.style.opacity = 0.5;
+    });
+
+    botao_upgrd2.addEventListener("mouseout", function () {
+        desc_upgrd2.style.width = 0;
+        desc_upgrd2.style.height = 0;
+        desc_upgrd2.style.overflow = 'hidden';
+        desc_upgrd2.style.left = 0 + "px";
+        desc_upgrd2.style.opacity = 0;
+        desc_upgrd2.style.opacity = 0;
+    });
+
+
+    botao_upgrd3.addEventListener("mouseover", function (event) {
+        var x = event.clientX;
+        var y = event.clientY;
+
+        desc_upgrd3.style.width = '200px';
+        desc_upgrd3.style.height = 'fit-content';
+        desc_upgrd3.style.left = "-220px";
+        desc_upgrd3.style.opacity = 0.5;
+    });
+
+    botao_upgrd3.addEventListener("mouseout", function () {
+        desc_upgrd3.style.width = 0;
+        desc_upgrd3.style.height = 0;
+        desc_upgrd3.style.overflow = 'hidden';
+        desc_upgrd3.style.left = 0 + "px";
+        desc_upgrd3.style.opacity = 0;
+        desc_upgrd3.style.opacity = 0;
+    });
+
+
+    botao_upgrd4.addEventListener("mouseover", function (event) {
+        var x = event.clientX;
+        var y = event.clientY;
+
+        desc_upgrd4.style.width = '200px';
+        desc_upgrd4.style.height = 'fit-content';
+        desc_upgrd4.style.left = "-220px";
+        desc_upgrd4.style.opacity = 0.5;
+    });
+
+    botao_upgrd4.addEventListener("mouseout", function () {
+        desc_upgrd4.style.width = 0;
+        desc_upgrd4.style.height = 0;
+        desc_upgrd4.style.overflow = 'hidden';
+        desc_upgrd4.style.left = 0 + "px";
+        desc_upgrd4.style.opacity = 0;
+        desc_upgrd4.style.opacity = 0;
+    });
+
+
+    botao_upgrd5.addEventListener("mouseover", function (event) {
+        var x = event.clientX;
+        var y = event.clientY;
+
+        desc_upgrd5.style.width = '200px';
+        desc_upgrd5.style.height = 'fit-content';
+        desc_upgrd5.style.left = "-220px";
+        desc_upgrd5.style.opacity = 0.5;
+    });
+
+    botao_upgrd5.addEventListener("mouseout", function () {
+        desc_upgrd5.style.width = 0;
+        desc_upgrd5.style.height = 0;
+        desc_upgrd5.style.overflow = 'hidden';
+        desc_upgrd5.style.left = 0 + "px";
+        desc_upgrd5.style.opacity = 0;
+        desc_upgrd5.style.opacity = 0;
+    });
 </script>
