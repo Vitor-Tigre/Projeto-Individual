@@ -8,7 +8,7 @@
     <title>†Clicker†</title>
 </head>
 
-<body>
+<body onload="iniciarTimer()">
     <div class="corpo">
         <div class="content">
 
@@ -17,15 +17,14 @@
                     Pontos: <span id="b_pontos">0.00</span>
                 </div>
                 <div class="container" id="clicker" onclick="clicker()">
-                    <img
-                        src="https://static.wikia.nocookie.net/pizzaria-freddy-fazbear/images/0/09/IdleBonnie.gif/revision/latest/scale-to-width/360?cb=20160224185154&path-prefix=pt-br">
+                    <img src="assets/Bonnie.webp" alt="">
                 </div>
             </div>
 
             <div class="container" id="upgrades_settings">
                 <div id="settings">
                     <ul>
-                        <li>Salvar</li>
+                        <li>Tempo restante: <span id="timerJogo">900</span></li>
                         <li><a href="perfil.html">Salvar e sair</a></li>
                     </ul>
                 </div>
@@ -216,10 +215,26 @@
         }
     }
 
-    setInterval(function () {
-        pontos += porSegundo / 4;
+    var segundosTimer = 900;    //segundos para acabar o jogo
+    var intervaloSegundos = setInterval(function () {   //setInterval para contar pontos por segundo e contar o timer do jogo
+        pontos += porSegundo;
         b_pontos.innerHTML = pontos.toFixed(2);
-    }, 250);
+        timerJogo.innerHTML = segundosTimer;
+
+        segundosTimer--;
+        if (segundosTimer == 0) {
+            alert("O jogo acabou.");
+            clearInterval(intervaloSegundos);   //zera o setInterval com o id dele.
+            var botoesOnclicks = document.querySelectorAll("[onclick]");    //seleciona todos os elementos da página que possuem 'onclick'
+            for (var contadorDeOnclicks = 0; contadorDeOnclicks < botoesOnclicks.length; contadorDeOnclicks++) {
+                botoesOnclicks[contadorDeOnclicks].onclick = function(pararOnclick) {
+                    pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
+                }
+            }
+
+        }
+    }, 1000);
+
 
     cliques += onclick;
 
@@ -323,4 +338,7 @@
         desc_upgrd5.style.opacity = 0;
         desc_upgrd5.style.opacity = 0;
     });
+
+
+    //AQUI FICA A WEBDATAVIZ!!!!!!!!!!!!!!!!!!!!!
 </script>

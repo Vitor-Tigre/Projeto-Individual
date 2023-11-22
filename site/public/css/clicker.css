@@ -35,12 +35,9 @@ a {
     align-items: center;
 }
 
-/* .corpo .content #clicker_pontos #clicker {
-    background-color: black;
-    background-size: cover;
-    border: 2px solid #fefefe;
-    border-radius: 10%;
-} */
+.corpo .content #clicker_pontos #clicker img {
+    height: 350px;
+}
 
 .corpo .content #clicker_pontos #clicker:hover {
     transform: scale(1.05);
