@@ -77,9 +77,10 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.email = json.email;
+                    sessionStorage.idUsuario = json.idUsuario;
                     sessionStorage.nome = json.nome;
-                    sessionStorage.senha = json.senha;
+                    sessionStorage.email = json.email;
+                    // sessionStorage.senha = json.senha;
                     sessionStorage.dtNasc = json.dtNasc;
                     sessionStorage.albumPreferido = json.albumPreferido;
                     sessionStorage.dtCriacao = json.dtCriacao;

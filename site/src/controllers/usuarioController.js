@@ -125,14 +125,33 @@ function cadastrar(req, res) {
 function clicker(req, res) {
     var pontos = req.body.pontosServer;
     var totalCompras = req.body.totalComprasServer;
+    var idUsuario = req.body.idUsuarioServer;
 
     if (pontos == undefined) {
         res.status(400).send("Seus pontos estão com valor 'undefined'.");
+        console.log("pontos UNDEFINED");
     } else if (totalCompras == undefined) {
         res.status(400).send("Seu total de compras de upgrades está com valor 'undefined'.");
+        console.log("totalCompras UNDEFINED");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu id");
+        console.log("idUsuario UNDEFINED");
     } else {
-        usuarioModel.clicker(pontos, totalCompras)
-            .then()     //TERMINAR ESSA PARTE!!!!!!!!!!!!!!!!!!!!!!!
+        usuarioModel.clicker(pontos, totalCompras, idUsuario)
+            .then(
+                function(resultatoClicker) {
+                    res.json(resultatoClicker);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "Houve um erro ao cadastrar dados do Clicker! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage)
+                }
+            )
     }
 }
 

@@ -12,7 +12,7 @@ dtCriacao varchar(10)
 );
 
 create table Quiz(
-idQuiz int,
+idQuiz int auto_increment,
 acertos int,
 tempo decimal(9,2),
 fkUsuario int,
@@ -20,7 +20,7 @@ primary key(idQuiz, fkUsuario)
 );
 
 create table Clicker(
-idClicker int,
+idClicker int auto_increment,
 totalCompras int,
 pontos decimal(22,2),
 fkUsuario int,
@@ -30,3 +30,5 @@ primary key (idClicker, fkUsuario)
 desc dadosUsuario;
 desc Clicker;
 desc Quiz;
+
+select * from Clicker;

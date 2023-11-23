@@ -25,7 +25,7 @@
                 <div id="settings">
                     <ul>
                         <li>Tempo restante: <span id="timerJogo">...</span></li>
-                        <li><a href="perfil.html">Salvar e sair</a></li>
+                        <li onclick="salvarSair()">Salvar e sair</li>
                     </ul>
                 </div>
                 <div class="lista_upgrades">
@@ -109,8 +109,9 @@
     var pontos = 0;
     var porClique = 1
 
-    //quantidade de vezes o jogador clicou
+    //quantidade de vezes o jogador clicou e total de upgrades
     var cliques = 0;
+    var totalCompras = 1;
 
     //níveis e custos de cada upgrade, do primeiro (1) ao quinto (5)
     var nvlUp1 = 1;
@@ -145,6 +146,7 @@
         if (pontos >= custoUp1) {
             pontos -= custoUp1;
             porClique += 1;
+            totalCompras += 1;
 
             nvlUp1 += 1;
             custoUp1 *= 1.2;
@@ -161,6 +163,7 @@
         if (pontos >= custoUp2) {
             pontos -= custoUp2;
             porSegundo += 0.10;
+            totalCompras += 1;
 
             nvlUp2 += 1;
             custoUp2 *= 1.1;
@@ -177,6 +180,7 @@
         if (pontos >= custoUp3) {
             pontos -= custoUp3;
             porSegundo += 2;
+            totalCompras += 1;
 
             nvlUp3 += 1;
             custoUp3 *= 1.4;
@@ -193,6 +197,7 @@
         if (pontos >= custoUp4) {
             pontos -= custoUp4;
             porSegundo += 5;
+            totalCompras += 1;
 
             nvlUp4 += 1;
             custoUp4 *= 1.8;
@@ -209,6 +214,7 @@
         if (pontos >= custoUp5) {
             pontos -= custoUp5;
             porSegundo += 1.2 * (nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4 + nvlUp5);
+            totalCompras += 1;
 
             nvlUp5 += 1;
             custoUp5 *= 1.9;
@@ -237,37 +243,50 @@
                     pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
                 }
             }
-            //INTEGRAÇÃO COM BANCO DE DADOS
-            var totalCompras = nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4 + nvlUp5;
+
             console.log("Pontos adquiridos: ", pontos);
             console.log("Total de upgrades comprados: ", totalCompras);
 
-            fetch("/usuarios/clicker", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    pontosServer: pontos,
-                    totalComprarServer: totalCompras
-                })
-            }).then(function (resposta) {
-                console.log('Entrou no banco...');
 
-                if (resposta.ok) {
-                    resposta.json().then(json => {
-                        console.log(json);
-                        sessionStorage.pontos = json.pontos;
-                        sessionStorage.totalCompras = json.totalCompras
-                    })
-                }
-            })
 
         }
     }, 1000);
 
 
     cliques += onclick;
+
+    function salvarSair() {
+
+        if (pontos > 10) {
+            fetch("/usuarios/clicker", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    pontosServer: pontos,
+                    totalComprasServer: totalCompras,
+                    idUsuarioServer: sessionStorage.idUsuario
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        //mensagem de status de envio aqui!
+
+                    } else {
+                        console.log("Houve um erro na inserção de dados.");
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+        // setTimeout(() => {
+        //     window.location.href = "perfil.html";
+        // }, 2000);
+    }
 
 
     //descrição dos upgrades.
