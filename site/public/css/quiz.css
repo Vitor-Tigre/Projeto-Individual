@@ -24,12 +24,19 @@ a {
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+}
+
+.container #timer {
+    width: 90%;
+    display: flex;
+    justify-content: end;
 }
 
 .container #textos {
     width: 75%;
+    margin-bottom: 7%;
     text-align: center;
 }
 #textos p {
@@ -39,6 +46,7 @@ a {
 .container #botoes {
     width: 75%;
     height: 30%;
+    margin-bottom: 7%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;

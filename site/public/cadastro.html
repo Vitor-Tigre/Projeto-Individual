@@ -88,7 +88,7 @@
             mensagemErro.innerHTML = '<span style="color: red;">Insira um nome de usuário!</span>';
             finalizarAguardar();
             return false;
-        } else if (email == '' || email.indexOf("@") < 0 || email.endsWith('.com') == false || email.endsWith('.school') == false) {
+        } else if (email == '' || email.indexOf("@") < 0 || email.endsWith('.com') == false) {
             mensagemErro.innerHTML = '<span style="color: red;"> Insira um email válido!</span>';
             finalizarAguardar();
             return false;

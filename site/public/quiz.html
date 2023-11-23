@@ -11,6 +11,9 @@
 <body>
     <div class="corpo">
         <div class="container">
+            <div id="timer">
+                <h3><span id="mostrarSegundos">0</span>s</h3>
+            </div>
             <div id="textos">
                 <h1>Bem-vindo(a) ao quiz de Bring Me The Horizon!</h1>
                 <p>Serão 10 rápidas perguntas sobre Bring Me The Horizon e quatro respostas diferentes. Ao final do
@@ -60,34 +63,45 @@
     var nmrQuestao = 0;
     var acertos = 0;
 
-    function iniciar() {
+    var segundosTimer = 0;
+    function iniciar() {    //inicia o jogo e começa a contar um timer.
+        avancar();  //avança para a próxima parte do código.
+        tempoDecorrido = setInterval(function () {  //a cada segundo, a variável de segundos aumenta e 1, e é passado para o site. A variável é global para ser chamada depois.
+            mostrarSegundos.innerHTML = segundosTimer += 1
+        }, 1000);
+    }
+
+    function avancar() {
         textos.innerHTML = `<h3>Questão ${respostasJogador.length + 1}/10</h3>
         <p>${listaQuestoes[nmrQuestao]}</p>`;
         botoes.innerHTML = `
             <div class="linhaBotoes">
-                <button onclick="avancarQuiz(this)" value="1">
+                <button onclick="proximaQuestao(this)" value="1">
                     ${totalAlternativas[nmrQuestao][0]}
                 </button>
-                <button onclick="avancarQuiz(this)" value="3">
+                <button onclick="proximaQuestao(this)" value="3">
                     ${totalAlternativas[nmrQuestao][2]}
                 </button>
             </div>
             <div class="linhaBotoes">
-                <button onclick="avancarQuiz(this)" value="2">
+                <button onclick="proximaQuestao(this)" value="2">
                     ${totalAlternativas[nmrQuestao][1]}
                 </button>
-                <button onclick="avancarQuiz(this)" value="4">
+                <button onclick="proximaQuestao(this)" value="4">
                     ${totalAlternativas[nmrQuestao][3]}
                 </button>
             </div>
         `;
+
     }
 
-    function avancarQuiz(botaoApertado) {
+    function proximaQuestao(botaoApertado) {
         nmrQuestao += 1;
         respostasJogador.push(Number(botaoApertado.value));
         if (nmrQuestao >= 10) {
-            for (var contagemPontos = 0; contagemPontos < respostasCorretas.length; contagemPontos ++) {
+            clearInterval(tempoDecorrido);
+
+            for (var contagemPontos = 0; contagemPontos < respostasCorretas.length; contagemPontos++) {
                 if (respostasJogador[contagemPontos] == respostasCorretas[contagemPontos]) {
                     acertos += 1;
                 }
@@ -107,9 +121,9 @@
             } else {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um verdadeiro especialista em Bring Me The Horizon. Você poderia escrever um livro sobre eles.</p>`
             }
-            botoes.innerHTML = `<button><a href="perfil.html">Ir para o perfil</a></button>`
+            botoes.innerHTML = `<a href="perfil.html"><button>Ir para o perfil</button></a>`
         } else {
-            iniciar();
+            avancar();
         }
     }
 </script>

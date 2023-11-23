@@ -8,7 +8,7 @@
     <title>†Clicker†</title>
 </head>
 
-<body onload="iniciarTimer()">
+<body>
     <div class="corpo">
         <div class="content">
 
@@ -24,13 +24,14 @@
             <div class="container" id="upgrades_settings">
                 <div id="settings">
                     <ul>
-                        <li>Tempo restante: <span id="timerJogo">900</span></li>
+                        <li>Tempo restante: <span id="timerJogo">...</span></li>
                         <li><a href="perfil.html">Salvar e sair</a></li>
                     </ul>
                 </div>
                 <div class="lista_upgrades">
                     <h1>Upgrades</h1>
-                    <div class="upgrades" id="botao_upgrd1" onclick="upgrd1()"> <!--Aumenta o valor do clique no contador de pontos-->
+                    <div class="upgrades" id="botao_upgrd1" onclick="upgrd1()">
+                        <!--Aumenta o valor do clique no contador de pontos-->
                         <h2>Power Chord Boost</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd1">1</span></p>
@@ -42,19 +43,22 @@
                         </div>
                     </div>
 
-                    <div class="upgrades" id="botao_upgrd2" onclick="upgrd2()"> <!--Aumenta o valor dos pontos por segundo - barato-->
+                    <div class="upgrades" id="botao_upgrd2" onclick="upgrd2()">
+                        <!--Aumenta o valor dos pontos por segundo - barato-->
                         <h2>Riff Generator</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd2">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd2">15</span></p>
                         </div>
                         <div class="desc_upgrades" id="desc_upgrd2">
-                            <p>Desbloqueia um gerador de riffs automático que adiciona pontos constantemente ao seu total.</p>
+                            <p>Desbloqueia um gerador de riffs automático que adiciona pontos constantemente ao seu
+                                total.</p>
                             <p>+0.10 ponto por segundo.</p>
                         </div>
                     </div>
 
-                    <div class="upgrades" id="botao_upgrd3" onclick="upgrd3()"> <!--Aumenta o valor de pontos por segundo - caro-->
+                    <div class="upgrades" id="botao_upgrd3" onclick="upgrd3()">
+                        <!--Aumenta o valor de pontos por segundo - caro-->
                         <h2>Drum Solo Fury</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd3">0</span></p>
@@ -66,14 +70,16 @@
                         </div>
                     </div>
 
-                    <div class="upgrades" id="botao_upgrd4" onclick="upgrd4()"> <!--Aumenta o valor por segundo - muito caro-->
+                    <div class="upgrades" id="botao_upgrd4" onclick="upgrd4()">
+                        <!--Aumenta o valor por segundo - muito caro-->
                         <h2>Bassline Resonance</h2>
                         <div class="custo_nivel">
                             <p>nvl. <span id="b_upgrd4">0</span></p>
                             <p>Custo: <span id="b_custoUpgrd4">450</span></p>
                         </div>
                         <div class="desc_upgrades" id="desc_upgrd4">
-                            <p>Fortalece a ressonância da linha de baixo, proporcionando um aumento constante nos pontos.</p>
+                            <p>Fortalece a ressonância da linha de baixo, proporcionando um aumento constante nos
+                                pontos.</p>
                             <p>+5 pontos por segundo.</p>
                         </div>
                     </div>
@@ -218,20 +224,19 @@
     var segundosTimer = 900;    //segundos para acabar o jogo
     var intervaloSegundos = setInterval(function () {   //setInterval para contar pontos por segundo e contar o timer do jogo
         pontos += porSegundo;
+        segundosTimer--;
+
         b_pontos.innerHTML = pontos.toFixed(2);
         timerJogo.innerHTML = segundosTimer;
-
-        segundosTimer--;
         if (segundosTimer == 0) {
             alert("O jogo acabou.");
             clearInterval(intervaloSegundos);   //zera o setInterval com o id dele.
             var botoesOnclicks = document.querySelectorAll("[onclick]");    //seleciona todos os elementos da página que possuem 'onclick'
             for (var contadorDeOnclicks = 0; contadorDeOnclicks < botoesOnclicks.length; contadorDeOnclicks++) {
-                botoesOnclicks[contadorDeOnclicks].onclick = function(pararOnclick) {
+                botoesOnclicks[contadorDeOnclicks].onclick = function (pararOnclick) {
                     pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
                 }
             }
-
         }
     }, 1000);
 
