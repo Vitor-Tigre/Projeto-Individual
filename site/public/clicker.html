@@ -237,6 +237,32 @@
                     pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
                 }
             }
+            //INTEGRAÇÃO COM BANCO DE DADOS
+            var totalCompras = nvlUp1 + nvlUp2 + nvlUp3 + nvlUp4 + nvlUp5;
+            console.log("Pontos adquiridos: ", pontos);
+            console.log("Total de upgrades comprados: ", totalCompras);
+
+            fetch("/usuarios/clicker", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pontosServer: pontos,
+                    totalComprarServer: totalCompras
+                })
+            }).then(function (resposta) {
+                console.log('Entrou no banco...');
+
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        console.log(json);
+                        sessionStorage.pontos = json.pontos;
+                        sessionStorage.totalCompras = json.totalCompras
+                    })
+                }
+            })
+
         }
     }, 1000);
 
@@ -343,7 +369,4 @@
         desc_upgrd5.style.opacity = 0;
         desc_upgrd5.style.opacity = 0;
     });
-
-
-    //AQUI FICA A WEBDATAVIZ!!!!!!!!!!!!!!!!!!!!!
 </script>

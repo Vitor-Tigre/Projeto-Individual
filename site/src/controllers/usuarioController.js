@@ -121,7 +121,24 @@ function cadastrar(req, res) {
     }
 }
 
+
+function clicker(req, res) {
+    var pontos = req.body.pontosServer;
+    var totalCompras = req.body.totalComprasServer;
+
+    if (pontos == undefined) {
+        res.status(400).send("Seus pontos estão com valor 'undefined'.");
+    } else if (totalCompras == undefined) {
+        res.status(400).send("Seu total de compras de upgrades está com valor 'undefined'.");
+    } else {
+        usuarioModel.clicker(pontos, totalCompras)
+            .then()     //TERMINAR ESSA PARTE!!!!!!!!!!!!!!!!!!!!!!!
+    }
+}
+
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    clicker
 }

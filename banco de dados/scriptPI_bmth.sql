@@ -2,18 +2,31 @@ create database BMTH;
 use BMTH;
 
 create table dadosUsuario(
-idDados int primary key,
-nome varchar(45) not null,
-email varchar(45) not null,
-senha varchar(45) not null
+idUsuario int primary key auto_increment,
+nome varchar(45),
+email varchar(50) unique,
+senha varchar(45),
+dtNasc date,
+albumPreferido varchar(45),
+dtCriacao varchar(10)
 );
-desc dadosUsuario;
 
-create table perfilUsuario(
-idPerfil int,
-fkDados int,
-idade int not null,
-pronome varchar(10),
-primary key (idPerfil, fkDados)
+create table Quiz(
+idQuiz int,
+acertos int,
+tempo decimal(9,2),
+fkUsuario int,
+primary key(idQuiz, fkUsuario)
 );
-desc perfilUsuario;
+
+create table Clicker(
+idClicker int,
+totalCompras int,
+pontos decimal(22,2),
+fkUsuario int,
+primary key (idClicker, fkUsuario)
+);
+
+desc dadosUsuario;
+desc Clicker;
+desc Quiz;
