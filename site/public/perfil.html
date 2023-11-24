@@ -43,22 +43,23 @@
 
                     <div class="albumConquistas">
                         <h5>Álbum preferido</h5>
-                        <h6><span id="b_albumPreferido"></span></h6>
+                        <div class="dadosConquistas">
+                            <h6><span id="b_albumPreferido"></span></h6>
+                        </div>
                     </div>
 
                     <div class="albumConquistas">
                         <h5>Quiz</h5>
                         <div class="dadosConquistas">
-                            <!-- <h6>Tempo recorde: 00:00:00</h6> -->
-                            <h6>Acertos 10/10</h6>
+                            <h6>Acertos <span id="b_acertosQuiz">0</span>/10</h6>
+                            <h6>Tempo decorrido <span id="b_tempoQuiz">0</span>s</h6>
                         </div>
                     </div>
                     <div class="albumConquistas">
                         <h5>Rock Clicker</h5>
                         <div class="dadosConquistas">
-                            <h6>Nível: 0</h6>
-                            <h6>Total de pontos: 0</h6>
-                            <h6></h6>
+                            <h6>Pontos: <span id="b_pontosQuiz">0</span></h6>
+                            <h6>Upgrades comprados: <span id="b_totalCompras">0</span></h6>
                         </div>
                     </div>
 
@@ -79,4 +80,14 @@
     b_usuario.innerHTML = sessionStorage.nome;
     b_albumPreferido.innerHTML = sessionStorage.albumPreferido;
     b_criacao.innerHTML = sessionStorage.dtCriacao;
+
+    if (acertos != null && tempoQuiz != null) {
+        b_acertosQuiz.innerHTML = sessionStorage.acertos;
+        b_tempoQuiz.innerHTML = sessionStorage.tempoQuiz;
+    }
+
+    if (pontos != null && totalCompras != null) {
+        b_pontosQuiz.innerHTML = sessionStorage.pontos;
+        b_totalCompras.innerHTML = sessionStorage.totalCompras;
+    }
 </script>

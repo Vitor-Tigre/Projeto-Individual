@@ -25,7 +25,7 @@
                 <div id="settings">
                     <ul>
                         <li>Tempo restante: <span id="timerJogo">...</span></li>
-                        <li onclick="salvarSair()">Salvar e sair</li>
+                        <li id="botaoSair" onclick="salvarSair()">Salvar e sair</li>
                     </ul>
                 </div>
                 <div class="lista_upgrades">
@@ -238,9 +238,16 @@
             alert("O jogo acabou.");
             clearInterval(intervaloSegundos);   //zera o setInterval com o id dele.
             var botoesOnclicks = document.querySelectorAll("[onclick]");    //seleciona todos os elementos da página que possuem 'onclick'
+            var btn_sair = document.getElementById("botaoSair");
+            console.log(botoesOnclicks[1] == btn_sair)
+            console.log(btn_sair)
             for (var contadorDeOnclicks = 0; contadorDeOnclicks < botoesOnclicks.length; contadorDeOnclicks++) {
-                botoesOnclicks[contadorDeOnclicks].onclick = function (pararOnclick) {
-                    pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
+                if (botoesOnclicks[contadorDeOnclicks] != btn_sair) {
+                    botoesOnclicks[contadorDeOnclicks].onclick = function (pararOnclick) {
+                        pararOnclick.preventDefault();  //impede que o comportamento padrão do elemento 'onclick' seja executado
+                    }
+                } else {
+                    console.log(contadorDeOnclicks)
                 }
             }
 
@@ -256,7 +263,7 @@
     cliques += onclick;
 
     function salvarSair() {
-
+        console.log('oi')
         if (pontos > 10) {
             fetch("/usuarios/clicker", {
                 method: "POST",
@@ -275,6 +282,9 @@
                     if (resposta.ok) {
                         //mensagem de status de envio aqui!
 
+                        setTimeout(() => {
+                            window.location.href = "perfil.html";
+                        }, 1000);
                     } else {
                         console.log("Houve um erro na inserção de dados.");
                     }
@@ -283,9 +293,6 @@
                     console.log(`#ERRO: ${resposta}`);
                 });
         }
-        // setTimeout(() => {
-        //     window.location.href = "perfil.html";
-        // }, 2000);
     }
 
 

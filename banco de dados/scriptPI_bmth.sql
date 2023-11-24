@@ -14,7 +14,7 @@ dtCriacao varchar(10)
 create table Quiz(
 idQuiz int auto_increment,
 acertos int,
-tempo decimal(9,2),
+tempo int,
 fkUsuario int,
 primary key(idQuiz, fkUsuario)
 );
@@ -31,4 +31,5 @@ desc dadosUsuario;
 desc Clicker;
 desc Quiz;
 
+select * from dadosUsuario;
 select * from Clicker;

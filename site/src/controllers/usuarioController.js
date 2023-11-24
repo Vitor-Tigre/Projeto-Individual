@@ -7,8 +7,10 @@ function autenticar(req, res) {
 
     if (email == undefined) {
         res.status(400).send("Seu email está UNDEFINED!");
+        console.log("erro no email");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está UNDEFINED!");
+        console.log("erro na sneha");
     } else {
 
         usuarioModel.autenticar(email, senha)
@@ -139,7 +141,7 @@ function clicker(req, res) {
     } else {
         usuarioModel.clicker(pontos, totalCompras, idUsuario)
             .then(
-                function(resultatoClicker) {
+                function (resultatoClicker) {
                     res.json(resultatoClicker);
                 }
             ).catch(
@@ -155,9 +157,42 @@ function clicker(req, res) {
     }
 }
 
+function quiz(req, res) {
+    var acertos = req.body.acertosServer;
+    var segundosTimer = req.body.segundosTimerServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (acertos == undefined) {
+        res.status(400).send("Seus dados de acertos estão com valor 'undefined'.");
+        console.log("pontos UNDEFINED");
+    } else if (segundosTimer == undefined) {
+        res.status(400).send("Seu total de compras de upgrade");
+        console.log("totalCompras UNDEFINED");
+    } else if (idUsuario == undefined) {
+        res.status(400).send("Seu id de usuário está com valor 'undefined'.");
+        console.log("/quiz idUsuario UNDEFINED");
+    } else {
+        usuarioModel.quiz(acertos, segundosTimer, idUsuario)
+            .then(
+                function (resultadoQuiz) {
+                    res.json(resultadoQuiz);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "Houve um erro ao cadastrar dados do Quiz! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage)
+                }
+            )
+    }
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    clicker
+    clicker,
+    quiz
 }

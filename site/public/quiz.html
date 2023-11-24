@@ -121,9 +121,39 @@
             } else {
                 textos.innerHTML = `<p>Você acertou ${acertos} questões! Você é um verdadeiro especialista em Bring Me The Horizon. Você poderia escrever um livro sobre eles.</p>`
             }
-            botoes.innerHTML = `<a href="perfil.html"><button>Ir para o perfil</button></a>`
+            botoes.innerHTML = `<button onclick="sairQuiz()">Ir para o perfil</button>`
         } else {
             avancar();
         }
+    }
+
+    function sairQuiz() {
+        fetch("/usuarios/quiz", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                acertosServer: acertos,
+                segundosTimerServer: segundosTimer,
+                idUsuarioServer: sessionStorage.idUsuario
+            }),
+        })
+            .then(function (resposta) {
+                console.log("Resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Dados enviados!");
+
+                    setTimeout(() => {
+                        window.location.href = "perfil.html"
+                    }, 1000);
+                } else {
+                    console.log("Erro na inserção de dados.");
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            })
     }
 </script>

@@ -44,17 +44,23 @@ body {
     font-size: 17px;
 }
 #userFeed .userDados .albumConquistas {
+    background-color: #fefefe;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     /* margin-inline: 25px; */
     margin-block: 10px;
-    justify-content: center;
+    justify-content: space-between;
+    padding-block: 5px;
 }
 #userFeed .userDados .albumConquistas .dadosConquistas {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
     width: 250px;
+    margin-block: 10px;
 }
 #userFeed .userPosts {
     display: flex;

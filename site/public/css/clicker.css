@@ -92,6 +92,10 @@ a {
     margin-block: 10px;
 }
 
+.corpo .content #upgrades_settings #settings #botaoSair {
+    cursor: pointer;
+}
+
 .corpo .content #upgrades_settings .lista_upgrades .upgrades {
     width: 85%;
     background-color: #3b3b3b;
