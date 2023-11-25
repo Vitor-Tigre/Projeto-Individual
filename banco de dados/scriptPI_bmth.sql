@@ -33,3 +33,4 @@ desc Quiz;
 
 select * from dadosUsuario;
 select * from Clicker;
+select * from Quiz;

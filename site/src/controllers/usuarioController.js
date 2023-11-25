@@ -166,7 +166,7 @@ function quiz(req, res) {
         res.status(400).send("Seus dados de acertos estão com valor 'undefined'.");
         console.log("pontos UNDEFINED");
     } else if (segundosTimer == undefined) {
-        res.status(400).send("Seu total de compras de upgrade");
+        res.status(400).send("O tempo está 'undefined'.");
         console.log("totalCompras UNDEFINED");
     } else if (idUsuario == undefined) {
         res.status(400).send("Seu id de usuário está com valor 'undefined'.");
