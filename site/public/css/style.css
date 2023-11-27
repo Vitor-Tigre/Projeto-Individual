@@ -22,6 +22,7 @@ body {
     font-weight: 900;
 }
 
+
 /*Página inicial do site*/
 .corpo #home {
     background-color: #000000;
@@ -107,9 +108,62 @@ body {
     border-radius: 10px;
 }
 
+
 /*Página da discografia da banda*/
 .corpo #musicas {
-    background-color: #1a1a1a;
+    background-color: #DCDCDC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.corpo #musicas li {
+    color: #000000;
+}
+
+.corpo #musicas .album {
+    display: flex;
+    width: 80%;
+    margin-block: 50px;
+    justify-content: space-between;
+}
+
+#musicas .album .capaAlbum,
+.musicasAlbum {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    align-items: center;
+}
+
+#musicas .album .musicasAlbum li {
+    border-bottom: 1px solid #c0bfbf;
+    
+    height: 35px;
+    width: 80%;
+    margin-block: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+}
+
+#musicas ul {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#musicas .album .capaAlbum img {
+    width: 350px;
+}
+
+#musicas .album .capaAlbum h2, h3 {
+    margin: 2px;
 }
 
 /*Página de shows*/
