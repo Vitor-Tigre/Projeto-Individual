@@ -14,7 +14,7 @@
 
             <div class="container" id="clicker_pontos">
                 <div class="container" id="pontos">
-                    Pontos: <span id="b_pontos">0.00</span>
+                    Pontos de fama: <span id="b_pontos">0.00</span>
                 </div>
                 <div class="container" id="clicker" onclick="clicker()">
                     <img src="assets/Bonnie.webp" alt="">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="desc_upgrades" id="desc_upgrd5">
                             <p>Junte-se a lendas do rock para um concerto épico, multiplicando todos os seus ganhos.</p>
-                            <p>Multiplicador global para pontos e cliques.</p>
+                            <p>Multiplica o total de compras por 1,2 pontos por segundos.</p>
                         </div>
                     </div>
                 </div>
@@ -264,7 +264,7 @@
 
     function salvarSair() {
         console.log('oi')
-        if (pontos > 10) {
+        if (pontos > 10 || totalCompras > 1) {
             fetch("/usuarios/clicker", {
                 method: "POST",
                 headers: {
@@ -280,11 +280,13 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        //mensagem de status de envio aqui!
+                        console.log("Dados enviados!");
+                        sessionStorage.pontos = json.pontos;
+                        sessionStorage.totalCompras = json.totalCompras;
 
                         setTimeout(() => {
                             window.location.href = "perfil.html";
-                        }, 1000);
+                        }, 5000);
                     } else {
                         console.log("Houve um erro na inserção de dados.");
                     }

@@ -18,6 +18,7 @@ tempo int,
 fkUsuario int,
 primary key(idQuiz, fkUsuario)
 );
+alter table Quiz add constraint fkUsuarioQuiz foreign key (fkUsuario) references dadosUsuario (idUsuario);
 
 create table Clicker(
 idClicker int auto_increment,
@@ -26,6 +27,7 @@ pontos decimal(22,2),
 fkUsuario int,
 primary key (idClicker, fkUsuario)
 );
+alter table Clicker add constraint fkUsuarioClicker foreign key (fkUsuario) references dadosUsuario (idUsuario);
 
 desc dadosUsuario;
 desc Clicker;
@@ -34,3 +36,4 @@ desc Quiz;
 select * from dadosUsuario;
 select * from Clicker;
 select * from Quiz;
+select u.idUsuario, u.nome, c.pontos 'Pontos do Clicker', c.totalCompras 'Total de upgrades comprados', q.acertos 'Acertos no quiz', q.tempo 'Segundos para terminar' from dadosUsuario u left join Clicker c on u.idUsuario = c.fkUsuario join Quiz q on u.idUsuario = q.fkUsuario;
