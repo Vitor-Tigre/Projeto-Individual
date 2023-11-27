@@ -2,7 +2,6 @@ body {
     margin: 0;
 }
 
-
 /*Banner das páginas*/
 .corpo .banner {
     display: flex;
@@ -44,6 +43,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#sobreBMTH a {
+    color: #0a7c60;
 }
 
 .corpo #sobreBMTH .container {
