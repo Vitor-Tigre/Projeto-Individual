@@ -21,7 +21,7 @@ function autenticar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
                     if (resultadoAutenticar.length > 0) {
-                        res.json(resultadoAutenticar[0])
+                        res.json(resultadoAutenticar[resultadoAutenticar.length - 1])
                     }
                 }
             ).catch(
@@ -136,13 +136,13 @@ function clicker(req, res) {
         res.status(400).send("Seu total de compras de upgrades está com valor 'undefined'.");
         console.log("totalCompras UNDEFINED");
     } else if (idUsuario == undefined) {
-        res.status(400).send("Seu id");
+        res.status(400).send("Seu id está com valor 'undefined'.");
         console.log("idUsuario UNDEFINED");
     } else {
         usuarioModel.clicker(pontos, totalCompras, idUsuario)
             .then(
                 function (resultatoClicker) {
-                    res.json(resultatoClicker);
+                        res.json(resultatoClicker);
                 }
             ).catch(
                 function (erro) {
@@ -175,7 +175,7 @@ function quiz(req, res) {
         usuarioModel.quiz(acertos, segundosTimer, idUsuario)
             .then(
                 function (resultadoQuiz) {
-                    res.json(resultadoQuiz);
+                        res.json(resultadoQuiz);
                 }
             ).catch(
                 function (erro) {

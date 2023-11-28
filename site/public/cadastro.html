@@ -92,8 +92,8 @@
             mensagemErro.innerHTML = '<span style="color: red;"> Insira um email válido!</span>';
             finalizarAguardar();
             return false;
-        } else if (senha.length < 8 || senha.includes('1', '2', '3', '4', '5', '6', '7', '8', '9', '0') == false) {
-            mensagemErro.innerHTML = '<span style="color: red;"> Insira senha de pelo menos 8 dígitos e com números!</span>';
+        } else if (senha.length < 8) {
+            mensagemErro.innerHTML = '<span style="color: red;"> Insira senha de pelo menos 8 caracteres!</span>';
             finalizarAguardar();
             return false;
         } else if (confirmarSenha != senha) {
@@ -144,7 +144,7 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                mensagemErro.innerHTML = '<span style="color: green;">Welcome.</span>'
+                mensagemErro.innerHTML = '<span style="color: green;">Redirecionando.</span>'
             });
 
     }

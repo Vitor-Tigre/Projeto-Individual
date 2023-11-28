@@ -227,7 +227,7 @@
         }
     }
 
-    var segundosTimer = 900;    //segundos para acabar o jogo
+    var segundosTimer = 300;    //segundos para acabar o jogo
     var intervaloSegundos = setInterval(function () {   //setInterval para contar pontos por segundo e contar o timer do jogo
         pontos += porSegundo;
         segundosTimer--;
@@ -263,7 +263,7 @@
     cliques += onclick;
 
     function salvarSair() {
-        console.log('oi')
+        console.log('Saindo...')
         if (pontos > 10 || totalCompras > 1) {
             fetch("/usuarios/clicker", {
                 method: "POST",
@@ -281,12 +281,10 @@
 
                     if (resposta.ok) {
                         console.log("Dados enviados!");
-                        sessionStorage.pontos = json.pontos;
-                        sessionStorage.totalCompras = json.totalCompras;
 
                         setTimeout(() => {
-                            window.location.href = "perfil.html";
-                        }, 5000);
+                            window.location = "perfil.html";
+                        }, 1500);
                     } else {
                         console.log("Houve um erro na inserção de dados.");
                     }

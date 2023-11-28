@@ -29,6 +29,15 @@ primary key (idClicker, fkUsuario)
 );
 alter table Clicker add constraint fkUsuarioClicker foreign key (fkUsuario) references dadosUsuario (idUsuario);
 
+create table avaliacoes(
+idAvaliacao int,
+avaliacaoClicker int,
+avaliacaoQuiz int,
+fkUsuario int,
+primary key (idAvaliacao, fkusuario),
+constraint fkUsuarioAvaliacoes foreign key (fkUsuario) references dadosUsuario (idUsuario)
+);
+
 desc dadosUsuario;
 desc Clicker;
 desc Quiz;
