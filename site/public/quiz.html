@@ -145,6 +145,8 @@
 
                 if (resposta.ok) {
                     console.log("Dados enviados!");
+                    sessionStorage.setItem('acertos', acertos);
+                    sessionStorage.setItem('tempoQuiz', segundosTimer);
 
                     setTimeout(() => {
                         window.location.href = "perfil.html"

@@ -38,7 +38,7 @@
             </div>
             <div class="area">
                 <h2>Senha</h2>
-                <input type="password" id="input_senha" placeholder="letras e números">
+                <input type="password" id="input_senha" placeholder="mínimo 8 caracteres">
 
                 <h3>Confirmar senha</h3>
                 <input type="password" id="input_confSenha">
@@ -135,8 +135,6 @@
                         window.location.href = "login.html";
                     }, "2000");
 
-                    limparFormulario();
-                    finalizarAguardar();
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                     mensagemErro.innerHTML = '<span style="color: red;">E-mail já cadastrado.</span>'
@@ -144,7 +142,7 @@
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                mensagemErro.innerHTML = '<span style="color: green;">Redirecionando.</span>'
+                mensagemErro.innerHTML = '<span style="color: red;">Erro ao enviar dados.</span>'
             });
 
     }

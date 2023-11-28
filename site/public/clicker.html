@@ -281,6 +281,8 @@
 
                     if (resposta.ok) {
                         console.log("Dados enviados!");
+                        sessionStorage.setItem('pontos', pontos.toFixed(2));
+                        sessionStorage.setItem('totalCompras', totalCompras);
 
                         setTimeout(() => {
                             window.location = "perfil.html";

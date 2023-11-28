@@ -5,6 +5,7 @@ body {
 .corpo {
     height: 100vh;
     background-color: #4d4d4d;
+    /* background-color: #010101; */
 }
 
 .corpo #content {
@@ -26,13 +27,14 @@ body {
 #userImg {
     width: 20%;
     align-items: center;
+    height: fit-content;
 }
 #userImg img {
     width: 80%;
 }
 
 #userFeed {
-    width: 70%;
+    width: 75%;
     align-items: center;
     margin: auto;
 }
@@ -54,6 +56,15 @@ body {
     justify-content: space-between;
     padding-block: 5px;
 }
+
+#userFeed .userDados .albumConquistas h6, h5 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#userFeed .userDados .albumConquistas h6 {
+    font-size: 13px;
+}
+
 #userFeed .userDados .albumConquistas .dadosConquistas {
     display: flex;
     flex-direction: column;
@@ -97,15 +108,56 @@ body {
     justify-content: end;
 }
 
-#avaliacaoEstatistica button {
+button {
     margin: 10px;
-    height: 30px;
+    height: 25px;
     background-color: #fefefe;
     border: 1px solid #1a1a1a;
     border-radius: 10px;
     cursor: pointer;
 }
 
-#avaliacaoEstatistica button:hover {
+button:hover {
     color: red;
+}
+
+#telaAvaliacoes {
+    width: 100%;
+}
+
+#userFeed #telaAvaliacoes .avaliacoes {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+}
+
+#userFeed #telaAvaliacoes .avaliacoes #coracoesClicker, #coracoesQuiz {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    height: 35px;
+}
+
+#userFeed #telaDashboard {
+    background-color: #fefefe;
+    /* display: flex; */
+    height: 320px;
+    width: 97%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+#telaDashboard #dashboard {
+    display: flex;
+    height: 100%;
+    /* width: 100%; */
+    align-items: center;
+}
+
+.grafico {
+    height: 100%;
 }

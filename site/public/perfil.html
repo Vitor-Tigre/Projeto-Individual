@@ -69,14 +69,51 @@
                 </div>
 
                 <div id="avaliacaoEstatistica">
-                    <button>Avaliar Jogos</button>
-                    <a href="estatisticas.html"><button>Estatísticas</button></a>
+                    <button onclick="mostrarAvaliacao()">Avaliar Jogos</button>
+                    <!--Aparece no meio da tela, estrelas para avaliação dos jogos.-->
+                    <button onclick="mostrarDashboard()">Ver estatísticas</button> <!--Aparece a class avaliacoes.-->
                 </div>
 
-                <div class="avaliacoes">
-
+                <div id="telaAvaliacoes" style="display: none;">
+                    <div class="avaliacoes">
+                        <div class="avaliarJogo">
+                            <h2>Quiz</h2>
+                            <p>Qual sua avaliação para o jogo Quiz?</p>
+                            <div id="coracoesQuiz">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                            </div>
+                        </div>
+                        <div class="avaliarJogo">
+                            <h2>Clicker</h2>
+                            <p>Qual sua avaliação para o jogo Clicker?</p>
+                            <div id="coracoesClicker">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                                <img src="assets/heart.png">
+                            </div>
+                        </div>
+                    </div>
+                    <button>Salvar e enviar</button>
                 </div>
 
+                <div id="telaDashboard" style="display: none;">
+                    <div id="dashboard">
+                        <div class="grafico">
+                            <canvas id="canvas_graficoAlbum"></canvas>
+                        </div>
+
+                        <div class="grafico">
+                            <canvas id="canvas_graficoQuiz"></canvas>
+                            <canvas id="canvas_graficoClicker"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -85,15 +122,87 @@
 
 </html>
 <script>
+
+    var telaAvaliacao = document.getElementById('telaAvaliacoes');
+    var telaDashboard = document.getElementById('telaDashboard');
+
+    function mostrarAvaliacao() {
+        if (telaAvaliacao.style.display == 'none') {
+            telaAvaliacao.style.display = 'block'
+            telaDashboard.style.display = 'none'
+        } else {
+            telaAvaliacao.style.display = 'none'
+        }
+    }
+
+    function mostrarDashboard() {
+        if (telaDashboard.style.display == 'none') {
+            telaDashboard.style.display = 'block'
+            telaAvaliacao.style.display = 'none'
+        } else {
+            telaDashboard.style.display = 'none'
+        }
+    }
+
     b_usuario.innerHTML = sessionStorage.nome;
     b_albumPreferido.innerHTML = sessionStorage.albumPreferido;
     b_criacao.innerHTML = sessionStorage.dtCriacao;
     b_email.innerHTML = sessionStorage.email;
 
-    b_acertosQuiz.innerHTML = sessionStorage.acertos;
-    b_tempoQuiz.innerHTML = sessionStorage.tempoQuiz;
+    b_acertosQuiz.innerHTML = sessionStorage.getItem("acertos");
+    b_tempoQuiz.innerHTML = sessionStorage.getItem("tempoQuiz");
 
-    b_pontosQuiz.innerHTML = sessionStorage.pontos;
-    b_totalCompras.innerHTML = sessionStorage.totalCompras;
+    b_pontosQuiz.innerHTML = sessionStorage.getItem('pontos');
+    b_totalCompras.innerHTML = sessionStorage.getItem('totalCompras');
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const graficoAlbum = document.getElementById('canvas_graficoAlbum');
+    const graficoQuiz = document.getElementById('canvas_graficoQuiz');
+    const graficoClicker = document.getElementById('canvas_graficoClicker');
+
+    new Chart(graficoAlbum, {
+        type: 'pie',
+        data: {
+            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            datasets: [{
+                label: 'Álbuns preferidos',
+                data: [3, 2, 6, 1],
+                hoverOffset: 4
+            }]
+        }
+    })
+
+    new Chart(graficoQuiz, {
+        type: 'bar',
+        data: {
+            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            datasets: [{
+                label: 'Álbuns preferidos',
+                data: [3, 2, 6, 1],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    })
+
+    new Chart(graficoClicker, {
+        type: 'bar',
+        data: {
+            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            datasets: [{
+                label: 'Pontos',
+                data: [3, 2, 6, 1],
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    })
 
 </script>
