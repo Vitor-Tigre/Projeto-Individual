@@ -10,10 +10,10 @@
     <title>Perfil - BMTH</title>
 </head>
 
-<body>
+<body onload="mostrarGraficoAlbum(), mostrartGraficoQuiz(), mostrarGraficoClicker()">
     <div id="header">
         <div class="container">
-            <h1><a href="index.html">†BMTH†</a></h1>
+            <h1><a href="index.html">The Horizon</a></h1>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="discografia.html">Músicas</a></li>
@@ -53,23 +53,25 @@
 
                     <div class="albumConquistas">
                         <h5>Quiz</h5>
-                        <div class="dadosConquistas">
-                            <h6>Acertos <span id="b_acertosQuiz">0</span>/10</h6>
-                            <h6>Tempo decorrido <span id="b_tempoQuiz">0</span>s</h6>
+                        <div class="dadosConquistas" id="mostrarQuiz">
+                            <h6>Você ainda não jogou o Quiz.</h6>
+                            
+                            <!-- <h6><span id="b_coracoesQuiz"></span><img src="assets/heart (1).png"></h6> -->
                         </div>
                     </div>
                     <div class="albumConquistas">
                         <h5>Rock Clicker</h5>
-                        <div class="dadosConquistas">
-                            <h6>Pontos: <span id="b_pontosQuiz">0</span></h6>
-                            <h6>Upgrades comprados: <span id="b_totalCompras">0</span></h6>
+                        <div class="dadosConquistas" id="mostrarClicker">
+                            <h6>Você ainda não jogou o Clicker.</h6>
+
+                            <!-- <h6><span id="b_coracoesClicker"></span><img src="assets/heart (1).png"></h6> -->
                         </div>
                     </div>
 
                 </div>
 
                 <div id="avaliacaoEstatistica">
-                    <button onclick="mostrarAvaliacao()">Avaliar Jogos</button>
+                    <button onclick="mostrarAvaliacao()" id="botao_mostrarAvaliacao">Avaliar Jogos</button>
                     <!--Aparece no meio da tela, estrelas para avaliação dos jogos.-->
                     <button onclick="mostrarDashboard()">Ver estatísticas</button> <!--Aparece a class avaliacoes.-->
                 </div>
@@ -80,27 +82,29 @@
                             <h2>Quiz</h2>
                             <p>Qual sua avaliação para o jogo Quiz?</p>
                             <div id="coracoesQuiz">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
                             </div>
                         </div>
                         <div class="avaliarJogo">
                             <h2>Clicker</h2>
                             <p>Qual sua avaliação para o jogo Clicker?</p>
                             <div id="coracoesClicker">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
-                                <img src="assets/heart.png">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
                             </div>
                         </div>
                     </div>
-                    <button>Salvar e enviar</button>
+                    <button onclick="salvarAvaliacao()">Salvar e enviar</button>
                 </div>
+
+                <canvas id="canvasAvaliacao"></canvas>
 
                 <div id="telaDashboard" style="display: none;">
                     <div id="dashboard">
@@ -109,8 +113,19 @@
                         </div>
 
                         <div class="grafico">
-                            <canvas id="canvas_graficoQuiz"></canvas>
-                            <canvas id="canvas_graficoClicker"></canvas>
+                            <canvas id="canvas_graficoAcertosQuiz"></canvas>
+                        </div>
+
+                        <div class="grafico">
+                            <canvas id="canvas_graficoSegundosQuiz"></canvas>
+                        </div>
+
+                        <div class="grafico">
+                            <canvas id="canvas_graficoPontosClicker"></canvas>
+                        </div>
+
+                        <div class="grafico">
+                            <canvas id="canvas_graficoUpgradesClicker"></canvas>
                         </div>
                     </div>
                 </div>
@@ -122,6 +137,58 @@
 
 </html>
 <script>
+
+    
+    if (sessionStorage.getItem('acertos') != 'null' && sessionStorage.getItem('tempoQuiz') != 'null') {
+        mostrarQuiz.innerHTML = `
+        <h6>Acertos <span id="b_acertosQuiz">0</span>/10</h6>
+        <h6>Tempo decorrido <span id="b_tempoQuiz">0</span>s</h6>
+        `
+
+        b_acertosQuiz.innerHTML = sessionStorage.getItem("acertos");
+        b_tempoQuiz.innerHTML = sessionStorage.getItem("tempoQuiz");
+    }
+
+    if (sessionStorage.getItem('pontos') != 'null' && sessionStorage.getItem('totalCompras') != 'null') {
+        mostrarClicker.innerHTML = `
+                <h6>Pontos: <span id="b_pontosQuiz">0</span></h6>
+                <h6>Upgrades comprados: <span id="b_totalCompras">0</span></h6>
+            `
+
+            b_pontosQuiz.innerHTML = sessionStorage.getItem('pontos');
+            b_totalCompras.innerHTML = sessionStorage.getItem('totalCompras');
+    }
+
+
+    if (sessionStorage.getItem('avaliacaoClicker') != 'undefined' && sessionStorage.getItem('avaliacaoQuiz') != 'undefined') {
+        mostrarClicker.innerHTML += `
+        <h6 id="b_coracoesClicker"></h6>
+        `
+        var limiteRepeticao = Number(sessionStorage.getItem('avaliacaoClicker'))
+        for(var posicao = 0; posicao < limiteRepeticao; posicao++){
+            b_coracoesClicker.innerHTML += `
+                <img src="assets/heart (1).png">
+            `   
+        }
+        
+        mostrarQuiz.innerHTML += `
+        <h6 id="b_coracoesQuiz"><h6>
+        `
+        limiteRepeticao = Number(sessionStorage.getItem('avaliacaoQuiz'));
+        for(posicao = 0; posicao < limiteRepeticao; posicao++) {
+            b_coracoesQuiz.innerHTML += `
+                <img src="assets/heart (1).png">
+            `
+        }
+
+        avaliacaoEstatistica.innerHTML = `
+        <button onclick="mostrarDashboard()">Ver estatísticas</button>
+        `
+
+
+        
+    }
+
 
     var telaAvaliacao = document.getElementById('telaAvaliacoes');
     var telaDashboard = document.getElementById('telaDashboard');
@@ -139,6 +206,7 @@
         if (telaDashboard.style.display == 'none') {
             telaDashboard.style.display = 'block'
             telaAvaliacao.style.display = 'none'
+            setTimeout(() => dashboard.style.display = 'flex', 300);
         } else {
             telaDashboard.style.display = 'none'
         }
@@ -149,60 +217,355 @@
     b_criacao.innerHTML = sessionStorage.dtCriacao;
     b_email.innerHTML = sessionStorage.email;
 
-    b_acertosQuiz.innerHTML = sessionStorage.getItem("acertos");
-    b_tempoQuiz.innerHTML = sessionStorage.getItem("tempoQuiz");
 
-    b_pontosQuiz.innerHTML = sessionStorage.getItem('pontos');
-    b_totalCompras.innerHTML = sessionStorage.getItem('totalCompras');
 
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const graficoAlbum = document.getElementById('canvas_graficoAlbum');
-    const graficoQuiz = document.getElementById('canvas_graficoQuiz');
-    const graficoClicker = document.getElementById('canvas_graficoClicker');
+<script>    //avaliacao
+    var coracao_clicadoQuiz = 0;
+    var coracao_clicadoClicker = 0;
 
-    new Chart(graficoAlbum, {
+    function marcarAvaliacaoQuiz(coracaoClicado) {
+        coracao_clicadoQuiz = coracaoClicado.getAttribute("data-id");
+        if (coracao_clicadoQuiz == 1) {
+            coracoesQuiz.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
+                `
+        } else if (coracao_clicadoQuiz == 2) {
+            coracoesQuiz.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
+                `
+        } else if (coracao_clicadoQuiz == 3) {
+            coracoesQuiz.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
+                `
+        } else if (coracao_clicadoQuiz == 4) {
+            coracoesQuiz.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
+                `
+        } else if (coracao_clicadoQuiz == 5) {
+            coracoesQuiz.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="3">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="4">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoQuiz(this)" data-id="5">
+                `
+        }
+    }
+
+    function marcarAvaliacaoClicker(coracaoClicado) {
+        coracao_clicadoClicker = coracaoClicado.getAttribute("data-id");
+        if (coracao_clicadoClicker == 1) {
+            coracoesClicker.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
+                `
+        } else if (coracao_clicadoClicker == 2) {
+            coracoesClicker.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
+                `
+        } else if (coracao_clicadoClicker == 3) {
+            coracoesClicker.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
+                `
+        } else if (coracao_clicadoClicker == 4) {
+            coracoesClicker.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                <img src="assets/heart.png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
+                `
+        } else if (coracao_clicadoClicker == 5) {
+            coracoesClicker.innerHTML = `
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="1">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="2">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="3">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="4">
+                <img src="assets/heart (1).png" onclick="marcarAvaliacaoClicker(this)" data-id="5">
+                `
+        }
+    };
+
+    function ocultar_botao() {
+        botao_mostrarAvaliacao.style.display = 'none';
+    }
+    function salvarAvaliacao() {
+        if (coracao_clicadoClicker == 0 || coracao_clicadoQuiz == 0) {
+            alert('Avalie os dois jogos clicando nos corações.');
+            return false;
+        }
+        fetch("/avaliacao_routes/avaliacao", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                coracao_clicadoQuizServer: coracao_clicadoQuiz,
+                coracao_clicadoClickerServer: coracao_clicadoClicker,
+                idUsuarioServer: sessionStorage.idUsuario
+            })
+        })
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    telaAvaliacoes.innerHTML = `<div style="display: flex; align-self: center; justify-content: center"><p>Agradecemos pelo feedback.</p>
+                    <p>Sua avaliação foi enviada com sucesso. Ela aparecerá no seu perfil!</p></div>`;
+
+                    sessionStorage.setItem('avaliacaoClicker', coracao_clicadoClicker);
+                    sessionStorage.setItem('avaliacaoQuiz', coracao_clicadoQuiz);
+
+                    setTimeout(ocultar_botao(), 600);
+                } else {
+                    throw "Erro ao enviar os dados da avaliação!";
+
+                }
+
+            })
+            .catch(function (resposta) {
+                console.log("#ERRO: ", resposta);
+                return false;
+            })
+
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>    //dashboard
+    const graficoAlbum = document.getElementById('canvas_graficoAlbum');    //criando variáveis para criar os gráficos
+    const graficoAcertosQuiz = document.getElementById('canvas_graficoAcertosQuiz');
+    const graficoSegundosQuiz = document.getElementById('canvas_graficoSegundosQuiz');
+    const graficoPontosClicker = document.getElementById('canvas_graficoPontosClicker');
+    const graficoUpgradesClicker = document.getElementById('canvas_graficoUpgradesClicker');
+
+
+    var dataAlbum = [];     //vetores que vão guardar os valores das linhas do SELECT do banco de dados
+    var labelAlbum = [];
+    var graficoAlbumVar = new Chart(graficoAlbum, {
         type: 'pie',
         data: {
-            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            labels: labelAlbum,
             datasets: [{
                 label: 'Álbuns preferidos',
-                data: [3, 2, 6, 1],
+                data: dataAlbum,
+                backgroundColor: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff9900"],
                 hoverOffset: 4
             }]
         }
-    })
+    });
+    function mostrarGraficoAlbum() {
+        fetch(`/dashboard_routes/album`, {      //fetch para chamar os dados dos gráficos
+            method: "GET"
+        })
+            .then(function (resposta) {
+                console.log("Entrou no .then!")
 
-    new Chart(graficoQuiz, {
+                if (resposta.status == 200) {   //status(200) = OK, o valor pode entrar no cache/sessionStorage
+                    console.log(resposta);
+
+                    resposta.json().then(dashAlbum => { //converte resposta.json() de JSON -> javascript \\\ dashAlbum => {} recebe os dados JSON analisados com dashAlbum como parâmetro
+                        sessionStorage.dashboardAlbuns = JSON.stringify(dashAlbum); //armazena um sessionStorage dashboardAlbuns
+                    })  //JSON.stringify converte javascript em JSON antes de armazenar em sessionStorage
+                    setTimeout(() => {
+                        var obterDadosSessionStorageAlbum = JSON.parse(sessionStorage.dashboardAlbuns)
+                        atualizarGrafico(obterDadosSessionStorageAlbum);
+                    }, 500)
+
+                } else if (resposta.status != 200) {
+                    console.log("Houve um erro ao buscar os dados!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    })
+                };
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    };
+    function atualizarGrafico(obterDadosSessionStorageAlbum) {
+        obterDadosSessionStorageAlbum.forEach(element => {
+            dataAlbum.push(element.qtd);
+            labelAlbum.push(element.albumPreferido);
+        });
+        graficoAlbumVar.update();
+    };
+
+
+
+    var labelNomes = [];
+    var dataAcertos = [];
+    var dataTempo = [];
+
+    var graficoAcertos = new Chart(graficoAcertosQuiz, {
         type: 'bar',
         data: {
-            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            labels: labelNomes,
             datasets: [{
-                label: 'Álbuns preferidos',
-                data: [3, 2, 6, 1],
+                label: 'Acertos no quiz',
+                data: dataAcertos,
                 hoverOffset: 4
             }]
         },
         options: {
             maintainAspectRatio: false,
         }
-    })
-
-    new Chart(graficoClicker, {
+    });
+    var graficoSegundosVar = new Chart(graficoSegundosQuiz, {
         type: 'bar',
         data: {
-            labels: ['Sempiternal', "That's The Spirit", 'amo', 'POST HUMAN: SURVIVAL HORROR'],
+            labels: labelNomes,
             datasets: [{
-                label: 'Pontos',
-                data: [3, 2, 6, 1],
+                label: 'Menos tempo no Quiz',
+                data: dataTempo,
                 hoverOffset: 4
             }]
         },
         options: {
             maintainAspectRatio: false,
         }
-    })
+    });
+    function mostrartGraficoQuiz() {
+        fetch("/dashboard_routes/acertos", {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                console.log("gráfico de acertos entrou no .then");
+
+                if (resposta.status == 200) {
+                    console.log(resposta);
+
+                    resposta.json().then(dashQuiz => {
+                        sessionStorage.dashboardQuiz = JSON.stringify(dashQuiz);
+                    })
+                    setTimeout(() => {
+                        var obterAcertos = JSON.parse(sessionStorage.dashboardQuiz);
+                        atualizarQuiz(obterAcertos);
+                    }, 500)
+
+                } else if (resposta.status != 200) {
+                    console.log("Erro na busca de dados de acertos!");
+
+                    resposta.text().then(texto => {
+                        console.error(texto);
+                    })
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    };
+    function atualizarQuiz(obterAcertos) {
+        obterAcertos.forEach(element => {
+            dataAcertos.push(element.acertos);
+            dataTempo.push(element.tempo);
+            labelNomes.push(element.nome);
+        });
+        graficoAcertos.update();
+        graficoSegundosVar.update();
+    };
+
+
+
+
+    var labelNomesClicker = [];
+    var dataPontos = [];
+    var dataUpgrades = [];
+
+    var graficoPontosClickerVar = new Chart(graficoPontosClicker, {
+        type: 'bar',
+        data: {
+            labels: labelNomesClicker,
+            datasets: [{
+                label: 'Recorde de pontos',
+                data: dataPontos,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
+    var graficoUpgradesClickerVar = new Chart(graficoUpgradesClicker, {
+        type: 'bar',
+        data: {
+            labels: labelNomesClicker,
+            datasets: [{
+                label: 'Upgrades comprados na partida record',
+                data: dataUpgrades,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+        }
+    });
+    function mostrarGraficoClicker() {
+        fetch("/dashboard_routes/pontos", {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                console.log("Gráfico do Clicker entrou no .then");
+
+                if (resposta.status == 200) {
+                    console.log(resposta);
+
+                    resposta.json().then(dashClicker => {
+                        sessionStorage.dashboardClicker = JSON.stringify(dashClicker);
+                    })
+                    setTimeout(() => {
+                        var obterPontos = JSON.parse(sessionStorage.dashboardClicker);
+                        atualizarClicker(obterPontos);
+                    }, 500)
+                } else if (resposta.status != 200) {
+                    console.log("Erro na busca de dados do Clicker!");
+
+                    console.error(resposta);
+                }
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            })
+    };
+    function atualizarClicker(obterPontos) {
+        obterPontos.forEach(element => {
+            labelNomesClicker.push(element.nome);
+            dataPontos.push(element.pontos);
+            dataUpgrades.push(element.upgrades);
+        });
+        graficoUpgradesClickerVar.update();
+        graficoPontosClickerVar.update();
+    };
+
 
 </script>

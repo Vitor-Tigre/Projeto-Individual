@@ -29,20 +29,38 @@ primary key (idClicker, fkUsuario)
 );
 alter table Clicker add constraint fkUsuarioClicker foreign key (fkUsuario) references dadosUsuario (idUsuario);
 
-create table avaliacoes(
-idAvaliacao int,
+create table avaliacao(
+fkUsuario int primary key,
 avaliacaoClicker int,
 avaliacaoQuiz int,
-fkUsuario int,
-primary key (idAvaliacao, fkusuario),
 constraint fkUsuarioAvaliacoes foreign key (fkUsuario) references dadosUsuario (idUsuario)
 );
+
+show tables;
 
 desc dadosUsuario;
 desc Clicker;
 desc Quiz;
+desc avaliacao;
 
 select * from dadosUsuario;
 select * from Clicker;
 select * from Quiz;
-select u.idUsuario, u.nome, c.pontos 'Pontos do Clicker', c.totalCompras 'Total de upgrades comprados', q.acertos 'Acertos no quiz', q.tempo 'Segundos para terminar' from dadosUsuario u left join Clicker c on u.idUsuario = c.fkUsuario join Quiz q on u.idUsuario = q.fkUsuario;
+select * from avaliacao;
+
+
+SELECT u.idUsuario, u.nome, u.email, u.senha, u.dtNasc, u.albumPreferido, u.dtCriacao, c.pontos, c.totalCompras, q.acertos, q.tempo, a.avaliacaoClicker, a.avaliacaoQuiz FROM dadosUsuario u left join Clicker c on u.idUsuario = c.fkUsuario left join Quiz q on u.idUsuario = q.fkUsuario left join avaliacao a on u.idUsuario = a.fkUsuario order by u.idUsuario desc;
+
+SELECT albumPreferido, count(albumPreferido) qtd FROM dadosUsuario GROUP BY albumPreferido order by qtd desc LIMIT 5;
+
+select max(q.acertos) acertos, min(q.tempo) tempo, u.nome FROM Quiz q JOIN dadosUsuario u ON q.fkUsuario = u.idUsuario GROUP BY u.idUsuario order by acertos desc limit 5;
+
+select max(c.pontos) pontos, u.nome from Clicker c join dadosUsuario u on u.idUsuario = c.fkUsuario group by u.nome order by pontos desc limit 5;
+select max(c.totalCompras) upgrade, u.nome from Clicker c join dadosUsuario u on u.idUsuario = c.fkusuario group by u.nome order by upgrade desc limit 5;
+
+select c.pontos, c.totalCompras upgrades, u.nome from dadosUsuario u join Clicker c on u.idUsuario = c.fkUsuario;
+select max(c.pontos) pontos, max(c.totalCompras) upgrades, u.nome from dadosUsuario u join Clicker c on u.idUsuario = c.fkUsuario group by u.nome order by pontos desc;
+
+
+
+select * from dadosUsuario u left join avaliacao a on u.idUsuario = a.fkUsuario;

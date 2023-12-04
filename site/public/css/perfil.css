@@ -53,7 +53,7 @@ body {
     align-items: center;
     /* margin-inline: 25px; */
     margin-block: 10px;
-    justify-content: space-between;
+    justify-content: center;
     padding-block: 5px;
 }
 
@@ -63,6 +63,11 @@ body {
 
 #userFeed .userDados .albumConquistas h6 {
     font-size: 13px;
+}
+
+#userFeed .userDados .albumConquistas img {
+    height: 15px;
+    vertical-align: middle;
 }
 
 #userFeed .userDados .albumConquistas .dadosConquistas {
@@ -147,17 +152,22 @@ button:hover {
     width: 97%;
     margin-bottom: 10px;
     border-radius: 5px;
-    overflow: auto;
-    white-space: nowrap;
+    /* overflow: auto;
+    white-space: nowrap; */
 }
 
 #telaDashboard #dashboard {
-    display: flex;
+    display: inline-block;
     height: 100%;
-    /* width: 100%; */
-    align-items: center;
+    width: 100%;
+    overflow-x: scroll;
+    /* overflow-y: hidden; */
+    white-space: nowrap;
 }
 
 .grafico {
-    height: 100%;
+    align-self: flex-end;
+    height: 80%;
+    width: 300px;
+    margin-inline: 40px;
 }
