@@ -217,44 +217,32 @@ h3 {
     border-radius: 10px;
 }
 
-#momentos #showBeneficente {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-#showBeneficente .container {
+.shows_container {
     display: flex;
     flex-direction: row;
+    margin-block: 20px;
 }
 
-#showBeneficente .container .card {
-    background-color: #000000;
+.shows_container .card {
+    width: 250px;
+    margin-inline: 20px;
+    padding: 10px;
+    border: 1px solid #c0bfbf;
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 30%;
-    /* padding: 10px; */
-    margin-inline: 20px;
-    border: 1px solid #fefefe;
-    border-radius: 7px;
-    align-self: flex-start;
+    justify-content: flex-start;
     text-align: center;
-    box-shadow: -5px -5px #1a1a1a;
 }
 
-#showBeneficente .container .card h3 {
-    margin-top: 15px;
+.shows_container .card a {
+    color: #ff7171;
+    font-weight: 300;
 }
 
-#showBeneficente .container .card a {
-    color: #888888;
-}
-
-#showBeneficente .container .card img {
-    height: 100%;
+.shows_container .card img {
     width: 100%;
-    border-radius: 10px 10px 0px 0px;
 }
 
 #momentos .container .parte_historia {
