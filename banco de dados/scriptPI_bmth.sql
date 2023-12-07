@@ -48,6 +48,7 @@ select * from Clicker;
 select * from Quiz;
 select * from avaliacao;
 
+select avaliacaoClicker, avaliacaoQuiz from avaliacao;
 SELECT u.idUsuario, u.nome, u.email, u.senha, u.dtNasc, u.albumPreferido, u.dtCriacao, c.pontos, c.totalCompras, q.acertos, q.tempo, a.avaliacaoQuiz, a.avaliacaoClicker FROM dadosUsuario u left join Clicker c on u.idUsuario = c.fkUsuario left join Quiz q on u.idUsuario = q.fkUsuario left join avaliacao a on u.idUsuario = a.fkUsuario order by u.idUsuario desc;
 
 SELECT u.idUsuario, u.nome, u.email, u.senha, u.dtNasc, u.albumPreferido, u.dtCriacao, c.pontos, c.totalCompras, q.acertos, q.tempo, a.avaliacaoClicker, a.avaliacaoQuiz FROM dadosUsuario u left join Clicker c on u.idUsuario = c.fkUsuario left join Quiz q on u.idUsuario = q.fkUsuario left join avaliacao a on u.idUsuario = a.fkUsuario order by u.idUsuario desc;

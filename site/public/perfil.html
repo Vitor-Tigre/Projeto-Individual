@@ -55,7 +55,7 @@
                         <h5>Quiz</h5>
                         <div class="dadosConquistas" id="mostrarQuiz">
                             <h6>Você ainda não jogou o Quiz.</h6>
-                            
+
                             <!-- <h6><span id="b_coracoesQuiz"></span><img src="assets/heart (1).png"></h6> -->
                         </div>
                     </div>
@@ -104,16 +104,10 @@
                     <button onclick="salvarAvaliacao()">Salvar e enviar</button>
                 </div>
 
-                <canvas id="canvasAvaliacao"></canvas>
-
                 <div id="telaDashboard" style="display: none;">
                     <div id="dashboard">
                         <div class="grafico">
                             <canvas id="canvas_graficoAlbum"></canvas>
-                        </div>
-
-                        <div class="grafico">
-                            <canvas id="canvas_graficoAvaliacao"></canvas>
                         </div>
 
                         <div class="grafico">
@@ -142,7 +136,7 @@
 </html>
 <script>
 
-    
+
     if (sessionStorage.getItem('acertos') != 'null' && sessionStorage.getItem('tempoQuiz') != 'null') {
         mostrarQuiz.innerHTML = `
         <h6>Acertos <span id="b_acertosQuiz">0</span>/10</h6>
@@ -159,27 +153,27 @@
                 <h6>Upgrades comprados: <span id="b_totalCompras">0</span></h6>
             `
 
-            b_pontosQuiz.innerHTML = sessionStorage.getItem('pontos');
-            b_totalCompras.innerHTML = sessionStorage.getItem('totalCompras');
+        b_pontosQuiz.innerHTML = sessionStorage.getItem('pontos');
+        b_totalCompras.innerHTML = sessionStorage.getItem('totalCompras');
     }
 
 
-    if (sessionStorage.getItem('avaliacaoClicker') != 'undefined' && sessionStorage.getItem('avaliacaoQuiz') != 'undefined') {
+    if (sessionStorage.getItem('avaliacaoClicker') != 'null' && sessionStorage.getItem('avaliacaoQuiz') != 'null') {
         mostrarClicker.innerHTML += `
         <h6 id="b_coracoesClicker"></h6>
         `
         var limiteRepeticao = Number(sessionStorage.getItem('avaliacaoClicker'))
-        for(var posicao = 0; posicao < limiteRepeticao; posicao++){
+        for (var posicao = 0; posicao < limiteRepeticao; posicao++) {
             b_coracoesClicker.innerHTML += `
                 <img src="assets/heart (1).png">
-            `   
+            `
         }
-        
+
         mostrarQuiz.innerHTML += `
         <h6 id="b_coracoesQuiz"><h6>
         `
         limiteRepeticao = Number(sessionStorage.getItem('avaliacaoQuiz'));
-        for(posicao = 0; posicao < limiteRepeticao; posicao++) {
+        for (posicao = 0; posicao < limiteRepeticao; posicao++) {
             b_coracoesQuiz.innerHTML += `
                 <img src="assets/heart (1).png">
             `
@@ -190,7 +184,7 @@
         `
 
 
-        
+
     }
 
 
@@ -371,16 +365,6 @@
     const graficoUpgradesClicker = document.getElementById('canvas_graficoUpgradesClicker');
 
 
-
-
-    var idUsuario = sessionStorage.idUsuario;
-    const grafico_avaliacao = document.getElementById('canvas_graficoAvaliacao');
-    let 
-
-
-
-
-
     var dataAlbum = [];     //vetores que vão guardar os valores das linhas do SELECT do banco de dados
     var labelAlbum = [];
     var graficoAlbumVar = new Chart(graficoAlbum, {
@@ -543,6 +527,7 @@
             maintainAspectRatio: false,
         }
     });
+    
     function mostrarGraficoClicker() {
         fetch("/dashboard_routes/pontos", {
             method: "GET"
