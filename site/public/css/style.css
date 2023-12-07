@@ -245,6 +245,16 @@ h3 {
     width: 100%;
 }
 
+.shows_container .card .listaONU {
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.shows_container .card .listaONU .odsONU {
+    height: 50px;
+}
+
 #momentos .container .parte_historia {
     display: flex;
     justify-content: space-between;
